@@ -1,0 +1,5 @@
+/* pages/signup/signup.wxss */
+@import "../../UI/weui.wxss";
+.button-group {
+  margin-top: 50rpx;
+}

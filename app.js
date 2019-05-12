@@ -1,17 +1,22 @@
 //app.js
 App({
-  onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
+  onLaunch: function() {
     // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+    var skey = wx.getStorageSync('skey')
+    console.log(skey)
+    var registered = wx.getStorageSync('has_registered')
+    if(registered){
+      this.globalData.has_registered = registered
+    }
+    if(skey){
+      wx.checkSession({
+        fail: function(){
+          this.userLogin()
+        } 
+      })
+    } else {
+      this.userLogin()
+    }
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -34,6 +39,33 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    has_registered: false
+  },
+  userLogin: function() {
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if (res.code) {
+          // 发起网络请求
+          wx.request({
+            method: 'POST',
+            url: 'http://172.26.110.154:7198/users/session',
+            data: {
+              code: res.code
+            },
+            success: res => {
+              wx.setStorageSync('skey', res.header.Id)
+              wx.setStorageSync('has_registered', res.data.has_registered)
+              this.globalData.has_registered = res.data.has_registered
+              console.log(res.header)
+              console.log(res.data)
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
   }
 })
