@@ -66,10 +66,12 @@ Page({
     }
   },
   signUp: function () {
+    app.globalData.userName = this.data.username;
     wx.request({
-      url: 'http://172.26.110.154:7198/users',
+      url: 'https://result.eolinker.com/KfbcvQcf1c56bbf83aa178378ee348a28267771eb200000?uri=users/',
       method: 'POST',
       data: {
+        code: app.globalData.res_code,
         name: this.data.username,
         student_number: this.data.id
       },
@@ -80,9 +82,9 @@ Page({
             message: '注册成功',
             mask: true,
             onClose: function () {
-              app.globalData.has_registered = true
+              app.globalData.has_registered = true;
               wx.switchTab({
-                url: '../ user / user',
+                url: '../user/user',
               })
             }
           })

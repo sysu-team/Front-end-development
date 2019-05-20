@@ -1,0 +1,29 @@
+<!--pages/detail/detail.wxml-->
+<scroll-view scroll-y>
+  <view>
+    <image src='../../source/image/detail.jpg'></image>
+  </view>
+  <van-card 
+    num="1"
+    price="20.00"
+    title="{{desc}}"
+    desc="牌子名称，耐用性，型号等信息"
+    />
+  <view class='divLine'></view>
+  <view class="weui-panel">
+      <view class="weui-panel__hd">其他信息</view>
+      <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text">
+              <view class="weui-media-box__title weui-media-box__title_in-text">时间：2017-06-02</view>
+              <view class="weui-media-box__desc">快递描述：最好是申通快递</view>
+              <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta">发布人</view>
+                  <view class="weui-media-box__info__meta">哇哇哇哇哇</view>
+                  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">收件地址</view>
+                  <view class="weui-media-box__info__meta">火星</view>
+              </view>
+          </view>
+      </view>
+  </view>
+  <van-button class="buttonPlace" size='large' round type="primary">接受订单</van-button>
+</scroll-view>

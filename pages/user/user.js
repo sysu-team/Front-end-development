@@ -18,11 +18,25 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  onShow: function(options){
+    if(typeof(app.globalData.userInfo.userName) != "undefined" && app.globalData.userInfo != null){
+      this.setData({
+        name: app.globalData.userInfo.userName
+      })
+    }
+    if(typeof(app.globalData.has_registered) != "undefined"){
+      this.setData({
+        login: app.globalData.has_registered
+      })
+    }
+  },
+
   onLoad: function(options) {
-    console.log(this.data.canIUse)
     this.setData({
-      login: app.globalData.has_registered
+      login: app.globalData.has_registered,
+      name: app.globalData.userName
     })
+    console.log(this.data.canIUse)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

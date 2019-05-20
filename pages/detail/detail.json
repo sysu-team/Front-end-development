@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-card": "../../UI/dist/card/index",
+    "van-button": "../../UI/dist/button/index"
+  },
+  "navigationBarTitleText": "详细信息",
+  "navigationBarBackgroundColor": "#ccc"
+}
