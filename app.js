@@ -54,7 +54,7 @@ App({
           // 发起网络请求
           wx.request({
             method: 'POST',
-            url: 'https://result.eolinker.com/KfbcvQcf1c56bbf83aa178378ee348a28267771eb200000?uri=users/session',
+            url: 'http://172.26.110.154:7198/users/session',
             data: {
               code: res.code
             },

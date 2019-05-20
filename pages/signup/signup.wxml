@@ -1,10 +1,10 @@
 <!--pages/signup/signup.wxml-->
 <van-cell-group>
-  <van-field value="{{ username }}" required clearable label="用户名" left-icon="user-o" placeholder="请输入用户名" error-message="{{error_user}}" maxlength="12" icon="question-o" bind:click-icon="nameHelp" bind:change="nameChange" bind:blur="nameConfirm"/>
+  <van-field value="{{username}}" required clearable label="用户名" left-icon="user-o" placeholder="请输入用户名" error-message="{{error_user}}" maxlength="12" icon="question-o" bind:click-icon="nameHelp" bind:change="nameChange" bind:blur="nameConfirm" />
 
-  <van-field value="{{ id }}" type="number" label="学号" placeholder="请输入学号" required clearable left-icon="info-o" error-message="{{error_id}}" icon="question-o" bind:click-icon="idHelp" maxlength="8" bind:change="idChange" bind:blur="idConfirm"/>
+  <van-field value="{{id}}" type="number" label="学号" placeholder="请输入学号" required clearable left-icon="info-o" error-message="{{error_id}}" icon="question-o" bind:click-icon="idHelp" maxlength="8" bind:change="idChange" bind:blur="idConfirm" />
 </van-cell-group>
-<view class = "button-group">
+<view class="button-group">
   <van-row gutter="20" class="button-group">
     <van-col span="8" offset="5">
       <van-button round plain type="danger" size="small" type="primary" bindtap='signUp'>注册 </van-button>
