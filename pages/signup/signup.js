@@ -75,7 +75,7 @@ Page({
   },
   signUp: function() {
     if (this.data.error_user != "" || this.data.error_id != "" || this.data.username == "" || this.data.id == ""){
-      Toast.fail("格式不正确!")
+      Toast.fail({message:"格式不正确!", mask:true})
       return
     }
     app.globalData.userName = this.data.username;
