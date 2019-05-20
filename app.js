@@ -1,6 +1,7 @@
 //app.js
 App({
   onLaunch: function() {
+    this.userLogin();
     // 登录
     var skey = wx.getStorageSync('skey')
     console.log(skey)
@@ -40,17 +41,20 @@ App({
   },
   globalData: {
     userInfo: null,
-    has_registered: false
+    has_registered: false,
+    res_code: null,
+    userName: ""
   },
   userLogin: function() {
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if (res.code) {
+          this.globalData.res_code = res.code;
           // 发起网络请求
           wx.request({
             method: 'POST',
-            url: 'http://172.26.110.154:7198/users/session',
+            url: 'https://result.eolinker.com/KfbcvQcf1c56bbf83aa178378ee348a28267771eb200000?uri=users/session',
             data: {
               code: res.code
             },
