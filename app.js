@@ -3,11 +3,11 @@ App({
   onLaunch: function() {
     //this.userLogin();
     // 登录
-    var skey = wx.getStorageSync('skey')
-    console.log(skey)
-    var registered = wx.getStorageSync('has_registered')
-    if(registered){
-      this.globalData.has_registered = registered
+    //var skey = wx.getStorageSync('skey')
+    //console.log(skey)
+    var login = wx.getStorageSync('has_login')
+    if(login){
+      this.globalData.has_login = login
     }
     // if(skey){
     //   wx.checkSession({
@@ -41,9 +41,9 @@ App({
   },
   globalData: {
     userInfo: null,
-    has_registered: false,
+    has_login: false,
     res_code: null,
-    userName: ""
+    //userName: ""
   },
   /*userLogin: 
   }*/
