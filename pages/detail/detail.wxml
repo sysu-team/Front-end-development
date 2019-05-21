@@ -5,7 +5,7 @@
   </view>
   <van-card 
     num="1"
-    price="20.00"
+    price="{{money}}"
     title="{{desc}}"
     desc="牌子名称，耐用性，型号等信息"
     />
@@ -25,5 +25,5 @@
           </view>
       </view>
   </view>
-  <van-button class="buttonPlace" size='large' round type="primary">接受订单</van-button>
+  <van-button class="buttonPlace" size='large' round type="primary" bindtap='rejectOrder' disabled='{{reject}}'>取消订单</van-button>
 </scroll-view>

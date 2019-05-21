@@ -5,8 +5,26 @@ Page({
    * 页面的初始数据
    */
   data: {
+    reject: false,
     imageURL: "../../source/image/detail.jpg",
-    desc:""
+    desc: "",
+    money: ""
+  },
+
+  rejectOrder: function () {
+    this.setData({
+      reject: true
+    })
+
+    wx.setStorageSync('reject', this.data.reject);
+    var array = wx.getStorageSync('array');
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].desc == this.data.desc) {
+        array[i].reject = this.data.reject;
+        break;
+      }
+    }
+    wx.setStorageSync('array', array);
   },
 
   /**
@@ -14,8 +32,10 @@ Page({
    */
   onLoad: function (options) {
     var descr = wx.getStorageSync('description')
+    wx.setStorageSync('reject', this.data.reject)
     this.setData({
-      desc: descr.desc
+      desc: descr.desc,
+      money: descr.money.substring(1, 3)
     })
   },
 
@@ -30,7 +50,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.setStorageSync('reject', this.data.reject)
   },
 
   /**

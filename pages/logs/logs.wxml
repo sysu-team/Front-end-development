@@ -1,16 +1,19 @@
 <!--logs.wxml-->
 <view wx:for="{{array}}" wx:key="item">
-  <view bindtap='viewDetail' data-desc='{{item}}'>
-    <view class="weui-media-box weui-media-box_appmsg">
-      <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-        <image class="weui-media-box__thumb" src="../../source/image/订单.png" />
-      </view>
-      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-        <view class="weui-media-box__title">简介： {{item.desc}}</view>
-        <view class="weui-media-box__desc">报酬： {{item.money}}</view>
+  <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
+    <view bindtap='viewDetail' data-desc='{{item}}'>
+      <view class="weui-media-box weui-media-box_appmsg">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image class="weui-media-box__thumb" src="../../source/image/订单.png" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">简介： {{item.desc}}</view>
+          <view class="weui-media-box__desc">报酬： {{item.money}}</view>
+        </view>
       </view>
     </view>
-  </view>
+    <view slot="right">删除</view>
+  </van-swipe-cell>
   <view class='divLine'></view>
 </view>
 
