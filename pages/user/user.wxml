@@ -13,8 +13,11 @@
     <view wx:else class="weui-media-box weui-media-box_appmsg">
       <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
         <van-row gutter="20">
-          <van-col span="12" offset="6">
-            <van-button size="large" type="primary" round class="weui-media-box__title" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap='goToSignUp'>注册     </van-button>
+          <van-col span="10" offset="1">
+            <van-button size="large" type="primary" round class="weui-media-box__title" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap='goToSignUp'>注册</van-button>
+          </van-col>
+          <van-col span="10" offset="2">
+            <van-button size="large" type="primary" round class="weui-media-box__title" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap='signIn'>登录</van-button>
           </van-col>
         </van-row>
       </view>

@@ -18,13 +18,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function(options){
-    if(typeof(app.globalData.userInfo.userName) != "undefined" && app.globalData.userInfo != null){
+  onShow: function(options) {
+    if (typeof(app.globalData.userInfo.userName) != "undefined" && app.globalData.userInfo != null) {
       this.setData({
         name: app.globalData.userInfo.userName
       })
     }
-    if(typeof(app.globalData.has_registered) != "undefined"){
+    if (typeof(app.globalData.has_registered) != "undefined") {
       this.setData({
         login: app.globalData.has_registered
       })
@@ -66,21 +66,21 @@ Page({
     }
   },
 
-  getUserInfo: function (e) {
-    if(!e.detail.userInfo){
+  getUserInfo: function(e) {
+    if (!e.detail.userInfo) {
       wx.showModal({
         title: '获取权限失败',
         content: '获取权限失败,请重新授权',
         showCancel: false,
         success: res => {
-          if(res.confirm){
+          if (res.confirm) {
             wx.switchTab({
               url: '../user/user',
             })
           }
         }
       })
-    } else{
+    } else {
       console.log(e)
       app.globalData.userInfo = e.detail.userInfo
       this.setData({
@@ -89,9 +89,47 @@ Page({
       })
     }
   },
-  goToSignUp: function(){
+  goToSignUp: function() {
     wx.navigateTo({
       url: '../signup/signup',
+    })
+  },
+  signIn: function() {
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if (res.code) {
+          this.globalData.res_code = res.code;
+          // 发起网络请求
+          wx.request({
+            method: 'POST',
+            url: 'http://172.26.110.154:7198/users/session',
+            data: {
+              code: res.code
+            },
+            success: res => {
+              wx.setStorageSync('skey', res.header.Id)
+              wx.setStorageSync('has_registered', res.data.has_registered)
+              this.globalData.has_registered = res.data.has_registered
+              console.log(res.header)
+              console.log(res.data)
+            }
+          })
+        } else {
+          wx.showModal({
+            title: '登录失败',
+            content: '登录失败,请稍后再试',
+            showCancel: false,
+            success: res => {
+              if (res.confirm) {
+                wx.switchTab({
+                  url: '../user/user',
+                })
+              }
+            }
+          })
+        }
+      }
     })
   }
 })
