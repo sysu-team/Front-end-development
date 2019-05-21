@@ -7,10 +7,10 @@ Page({
   },
   onLoad: function () {
     var arr = new Array();
-    var task1 = { desc: "buy a basketball", money: "$20"};
-    var task2 = { desc: "take a express in post office", money: "$10" };
-    var task3 = { desc: "take me a food", money: "$10" };
-    var task4 = { desc: "buy a umbrella", money: "$20" };
+    var task1 = { desc: "buy a basketball", money: "$20", reject: false };
+    var task2 = { desc: "take a express in post office", money: "$10", reject: false };
+    var task3 = { desc: "take me a food", money: "$10", reject: false };
+    var task4 = { desc: "buy a umbrella", money: "$20", reject: false };
     arr.push(task1);
     arr.push(task2);
     arr.push(task3);
@@ -18,12 +18,28 @@ Page({
     this.setData({
       array: arr
     })
+    wx.setStorageSync('array', this.data.array);
   },
-  viewDetail: function(e){
-    console.log(e.currentTarget.dataset.desc);
+  viewDetail: function (e) {
     wx.setStorageSync("description", e.currentTarget.dataset.desc)
     wx.navigateTo({
       url: '../detail/detail',
     })
+  },
+  onShow: function (options) {
+    var arr = wx.getStorageSync('array');
+    var result_array = new Array();
+    var index = -1;
+    this.setData({
+      array: arr
+    })
+    for (var i = 0; i < this.data.array.length; i++) {
+      if (this.data.array[i].reject == false)
+        result_array.push(this.data.array[i]);
+    }
+    this.setData({
+      array: result_array
+    })
+    wx.setStorageSync('array', this.data.array);
   }
 })

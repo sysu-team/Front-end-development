@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "任务",
-  "usingComponents": {}
+  "usingComponents": {
+    "van-swipe-cell": "../../UI/dist/swipe-cell/index"
+  }
 }
