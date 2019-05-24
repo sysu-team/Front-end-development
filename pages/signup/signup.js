@@ -74,44 +74,53 @@ Page({
     }
   },
   signUp: function() {
-    if (this.data.error_user != "" || this.data.error_id != "" || this.data.username == "" || this.data.id == ""){
-      Toast.fail({message:"格式不正确!", mask:true})
+    if (this.data.error_user != "" || this.data.error_id != "" || this.data.username == "" || this.data.id == "") {
+      Toast.fail({
+        message: "格式不正确!",
+        mask: true
+      })
       return
     }
-    app.globalData.userName = this.data.username;
-    console.log(this.data)
-    wx.request({
-      url: 'http://172.26.110.154:7198/users/',
-      method: 'POST',
-      data: {
-        code: app.globalData.res_code,
-        name: this.data.username,
-        student_number: this.data.id
-      },
+    //app.globalData.userName = this.data.username;
+    wx.login({
       success: res => {
-        var msg = res.data.msg
-        if (msg == 'ok') {
-          Toast.success({
-            message: '注册成功',
-            mask: true,
-            onClose: function() {
-              app.globalData.has_registered = true;
-              wx.switchTab({
-                url: '../user/user',
+        app.globalData.res_code = res.code
+        console.log(app.globalData.res_code,res.code,"signup")
+        wx.request({
+          url: 'http://172.26.110.154:7198/users',
+          method: 'POST',
+          data: {
+            code: res.code,
+            name: this.data.username,
+            student_number: this.data.id
+          },
+          success: res => {
+            var msg = res.data.msg
+            console.log(res)
+            if (msg == 'ok') {
+              Toast.success({
+                message: '注册成功',
+                mask: true,
+                onClose: function() {
+                  app.globalData.has_login = true;
+                  wx.switchTab({
+                    url: '../user/user',
+                  })
+                }
+              })
+            } else if (msg == 'duplicated_usename') {
+              Toast.fail({
+                message: '用户名重复',
+                mask: true,
+                onClose: function() {
+                  this.setData({
+                    username: ""
+                  })
+                }
               })
             }
-          })
-        } else if (msg == 'duplicated_usename') {
-          Toast.fail({
-            message: '用户名重复',
-            mask: true,
-            onClose: function() {
-              this.setData({
-                username: ""
-              })
-            }
-          })
-        }
+          }
+        })
       }
     })
   },

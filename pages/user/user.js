@@ -8,7 +8,7 @@ Page({
    */
   data: {
     login: false,
-    name: 'test',
+    name: '',
     credits: 0,
     imgSrc: "../../source/image/我的.png",
     userInfo: {},
@@ -20,10 +20,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function() {
-    if (typeof(app.globalData.has_login) != "undefined") {
+    if (app.globalData.has_login) {
       this.setData({
         login: app.globalData.has_login
       })
+      this.signIn()
     }
   },
 
@@ -98,6 +99,7 @@ Page({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if (res.code) {
           app.globalData.res_code = res.code;
+          console.log(app.globalData.res_code, res.code,"signin")
           // 发起网络请求
           wx.request({
             method: 'POST',
@@ -107,11 +109,11 @@ Page({
             },
             success: res => {
               //wx.setStorageSync('skey', res.header.Id)
-              if (res.msg == "ok") {
+              if (res.data.msg == "ok") {
                 wx.setStorageSync('has_login', true)
                 app.globalData.has_login = true
                 this.setData({
-                  name: res.data.name
+                  name: res.data.data.name
                 })
                 Toast.success({
                   message: "登录成功!",
@@ -122,7 +124,9 @@ Page({
                     })
                   }
                 })
-              } else if (res.msg == "unregister_user	") {
+              } else if (res.data.msg == "unregister_user	") {
+                wx.setStorageSync('has_login', false)
+                app.globalData.has_login = false
                 wx.showModal({
                   title: '登录失败',
                   content: '你尚未注册,请先注册',
@@ -136,6 +140,8 @@ Page({
                   }
                 })
               } else {
+                wx.setStorageSync('has_login', false)
+                app.globalData.has_login = false
                 wx.showModal({
                   title: '登录失败',
                   content: '登录失败,请稍后再试',
@@ -154,7 +160,7 @@ Page({
         } else {
           wx.showModal({
             title: '登录失败',
-            content: '登录失败,请稍后再试',
+            content: '登录失败,从微信获取信息失败',
             showCancel: false,
             success: res => {
               if (res.confirm) {
@@ -175,7 +181,7 @@ Page({
       method: 'DELETE',
       url: 'http://172.26.110.154:7198/users/session',
       success: res => {
-        if(res.msg == "ok"){
+        if(res.data.msg == "ok"){
           Toast.success({
             message: "退出登录成功!",
             mask: true,

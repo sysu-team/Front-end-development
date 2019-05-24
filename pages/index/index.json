@@ -1,4 +1,9 @@
 {
   "navigationBarTitleText": "首页",
-  "usingComponents": {}
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "usingComponents": {
+    "van-card": "../../UI/dist/card/index",
+    "van-button": "../../UI/dist/button/index"
+  }
 }
