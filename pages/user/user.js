@@ -109,7 +109,7 @@ Page({
             },
             success: res => {
               //wx.setStorageSync('skey', res.header.Id)
-              if (res.data.msg == "ok") {
+              if (res.data.code == 200) {
                 wx.setStorageSync('has_login', true)
                 app.globalData.has_login = true
                 this.setData({
@@ -124,7 +124,7 @@ Page({
                     })
                   }
                 })
-              } else if (res.data.msg == "unregister_user	") {
+              } else if (res.data.code == 401) {
                 wx.setStorageSync('has_login', false)
                 app.globalData.has_login = false
                 wx.showModal({

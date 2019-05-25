@@ -1,9 +1,13 @@
 {
   "navigationBarTitleText": "首页",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 50,
+  "onReachBottomDistance": 1,
+  "backgroundColor":"#ffffff",
+  "backgroundTextStyle":"dark",
   "usingComponents": {
     "van-card": "../../UI/dist/card/index",
-    "van-button": "../../UI/dist/button/index"
+    "van-button": "../../UI/dist/button/index",
+    "van-toast": "../../UI/dist/toast/index",
+    "van-loading": "../../UI/dist/loading/index"
   }
 }

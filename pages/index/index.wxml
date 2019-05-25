@@ -30,4 +30,9 @@
       </view>
     </van-card>
   </view>
+  <view wx:if="{{loadmore}}" style="text-align: center; margin-top: 20rpx;">
+  <van-loading type="spinner" color="#999999"/> 
+  <span style="color: #999999; margin-left: 20rpx;">加载中...</span>
+  </view>
 </view>
+<van-toast id="van-toast" />

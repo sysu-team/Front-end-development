@@ -95,9 +95,9 @@ Page({
             student_number: this.data.id
           },
           success: res => {
-            var msg = res.data.msg
+            var code = res.data.code
             console.log(res)
-            if (msg == 'ok') {
+            if (code == 200) {
               Toast.success({
                 message: '注册成功',
                 mask: true,
@@ -108,16 +108,34 @@ Page({
                   })
                 }
               })
-            } else if (msg == 'duplicated_usename') {
+            } else if (code == 401) {
               Toast.fail({
                 message: '用户名重复',
                 mask: true,
                 onClose: function() {
+                  app.globalData.has_login = false;
                   this.setData({
                     username: ""
                   })
                 }
               })
+            } else if (code == 402){
+              Toast.fail({
+                message: '学号重复',
+                mask: true,
+                onClose: function () {
+                  app.globalData.has_login = false;
+                  this.setData({
+                    id: ""
+                  })
+                }
+              })
+            } else {
+              Toast.fail({
+                message: '注册失败,请稍后重试',
+                mask: true
+              })
+              app.globalData.has_login = false;
             }
           }
         })
