@@ -1,4 +1,5 @@
 // pages/detail/detail.js
+import Toast from '../../UI/dist/toast/toast';
 Page({
 
   /**
@@ -25,6 +26,15 @@ Page({
       }
     }
     wx.setStorageSync('array', array);
+    Toast.success({
+      message: '取消成功',
+      mask: true,
+      onClose: function () {
+        wx.switchTab({
+          url: '../logs/logs',
+        })
+      }
+    })
   },
 
   /**

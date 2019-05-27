@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "任务",
   "usingComponents": {
-    "van-swipe-cell": "../../UI/dist/swipe-cell/index"
+    "van-swipe-cell": "../../UI/dist/swipe-cell/index",
+    "van-collapse": "../../UI/dist/collapse/index",
+    "van-collapse-item": "../../UI/dist/collapse-item/index"
   }
 }
