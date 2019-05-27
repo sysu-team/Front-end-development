@@ -1,2 +1,6 @@
 /* pages/user/user.wxss */
 @import "../../UI/weui.wxss";
+
+#signout {
+  margin-top: 40rpx;
+}

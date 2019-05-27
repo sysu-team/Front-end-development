@@ -24,3 +24,12 @@
     </view>
   </view>
 </view>
+<view id = "signout">
+  <van-row>
+    <van-col span="12" offset="6">
+      <van-button size="large" type="danger" round bindtap='signOut'>退出登录</van-button>
+    </van-col>
+  </van-row>
+</view>
+
+<van-toast id="van-toast" />

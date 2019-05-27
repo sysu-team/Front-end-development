@@ -1,58 +1,140 @@
 //index.js
 //获取应用实例
+import Toast from '../../UI/dist/toast/toast';
 const app = getApp()
-
+const host = "http://172.26.110.154:7198/delegations"
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    //搜索框
-    inputShowed: false,
-    inputVal: ""
+    delegations: [{
+      name: "test",
+      reward: 10.00,
+      id: 0,
+      description: "test"
+    }],
+    page: 0,
+    limit: 10,
+    img: "../../../source/image/订单.png",
+    loadmore: false
   },
   //事件处理函数
-  bindViewTap: function() {
-    wx.switchTab({
-      url: '../logs/logs'
+
+  onLoad: function () {
+    var url = host + "?page=" + this.data.page.toString() + "&limit=" + this.data.limit.toString()
+    console.log(url)
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url,
+          success: res => {
+            setTimeout(function () {
+              wx.hideLoading()
+            }, 1200)
+            console.log(res)
+            var arr = this.data.delegations.concat(res.data.data)
+            console.log(arr)
+            this.setData({
+              delegations: arr,
+            })
+            var pagination = res.data.pagination
+            if (pagination.total == this.data.limit) {
+              this.setData({
+                page: this.data.page + 1
+              })
+            }
+          },
+          fail: function () {
+            wx.hideLoading()
+            Toast.fail("加载失败,请稍后再试")
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+        Toast.fail("加载失败,请稍后再试")
+      }
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+  onPullDownRefresh: function () {
+    this.setData({
+      page: 0,
+      limit: 10,
+      delegations: [],
+      loadmore: false
+    })
+    var url = host + "?page=" + this.data.page.toString() + "&limit=" + this.data.limit.toString()
+    console.log(url)
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url,
+          success: res => {
+            setTimeout(function () {
+              wx.hideLoading()
+              wx.stopPullDownRefresh()
+            }, 1200)
+            console.log(res)
+            var arr = this.data.delegations.concat(res.data.data)
+            console.log(arr)
+            this.setData({
+              delegations: arr,
+            })
+            var pagination = res.data.pagination
+            if (pagination.total == this.data.limit) {
+              this.setData({
+                page: this.data.page + 1
+              })
+            }
+          },
+          fail: function () {
+            wx.hideLoading()
+            wx.stopPullDownRefresh()
+            Toast.fail("加载失败,请稍后再试")
+          }
         })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          console.log("get success")
-          app.globalData.userInfo = res.userInfo
+      },
+      fail: function () {
+        wx.hideLoading()
+        wx.stopPullDownRefresh()
+        Toast.fail("加载失败,请稍后再试")
+      },
+    })
+  },
+  onReachBottom: function () {
+    this.setData({
+      loadmore: true,
+      limit: this.data.limit*2,
+    })
+    var url = host + "?page=" + this.data.page.toString() + "&limit=" + this.data.limit.toString()
+    console.log(url)
+    wx.request({
+      url: url,
+      success: res => {
+        this.setData({
+          loadmore: false
+        })
+        console.log(res)
+        var arr = this.data.delegations.concat(res.data.data)
+        console.log(arr)
+        this.setData({
+          delegations: arr,
+        })
+        var pagination = res.data.pagination
+        if (pagination.total == this.data.limit) {
           this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
+            page: this.data.page + 1
           })
         }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      },
+      fail: function () {
+        this.setData({
+          loadmore: false
+        })
+        Toast.fail("加载失败,请稍后再试")
+      }
     })
   },
   //搜索框

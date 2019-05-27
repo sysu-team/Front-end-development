@@ -1,4 +1,5 @@
 // pages/user/user.js
+import Toast from '../../UI/dist/toast/toast';
 const app = getApp()
 Page({
 
@@ -7,7 +8,7 @@ Page({
    */
   data: {
     login: false,
-    name: 'test',
+    name: '',
     credits: 0,
     imgSrc: "../../source/image/我的.png",
     userInfo: {},
@@ -18,23 +19,19 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function(options) {
-    if (typeof(app.globalData.userInfo.userName) != "undefined" && app.globalData.userInfo != null) {
+  onShow: function() {
+    if (app.globalData.has_login) {
       this.setData({
-        name: app.globalData.userInfo.userName
+        login: app.globalData.has_login
       })
-    }
-    if (typeof(app.globalData.has_registered) != "undefined") {
-      this.setData({
-        login: app.globalData.has_registered
-      })
+      this.signIn()
     }
   },
 
   onLoad: function(options) {
     this.setData({
-      login: app.globalData.has_registered,
-      name: app.globalData.userName
+      login: app.globalData.has_login,
+      //name: app.globalData.userName
     })
     console.log(this.data.canIUse)
     if (app.globalData.userInfo) {
@@ -89,17 +86,20 @@ Page({
       })
     }
   },
+  //前往注册页面
   goToSignUp: function() {
     wx.navigateTo({
       url: '../signup/signup',
     })
   },
+  //登录
   signIn: function() {
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if (res.code) {
-          this.globalData.res_code = res.code;
+          app.globalData.res_code = res.code;
+          console.log(app.globalData.res_code, res.code,"signin")
           // 发起网络请求
           wx.request({
             method: 'POST',
@@ -108,17 +108,93 @@ Page({
               code: res.code
             },
             success: res => {
-              wx.setStorageSync('skey', res.header.Id)
-              wx.setStorageSync('has_registered', res.data.has_registered)
-              this.globalData.has_registered = res.data.has_registered
-              console.log(res.header)
-              console.log(res.data)
+              //wx.setStorageSync('skey', res.header.Id)
+              if (res.data.code == 200) {
+                wx.setStorageSync('has_login', true)
+                app.globalData.has_login = true
+                this.setData({
+                  name: res.data.data.name
+                })
+                Toast.success({
+                  message: "登录成功!",
+                  mask: true,
+                  onClose: function(){
+                    wx.switchTab({
+                      url: '../user/user',
+                    })
+                  }
+                })
+              } else if (res.data.code == 401) {
+                wx.setStorageSync('has_login', false)
+                app.globalData.has_login = false
+                wx.showModal({
+                  title: '登录失败',
+                  content: '你尚未注册,请先注册',
+                  showCancel: false,
+                  success: res => {
+                    if (res.confirm) {
+                      wx.switchTab({
+                        url: '../user/user',
+                      })
+                    }
+                  }
+                })
+              } else {
+                wx.setStorageSync('has_login', false)
+                app.globalData.has_login = false
+                wx.showModal({
+                  title: '登录失败',
+                  content: '登录失败,请稍后再试',
+                  showCancel: false,
+                  success: res => {
+                    if (res.confirm) {
+                      wx.switchTab({
+                        url: '../user/user',
+                      })
+                    }
+                  }
+                })
+              }
             }
           })
         } else {
           wx.showModal({
             title: '登录失败',
-            content: '登录失败,请稍后再试',
+            content: '登录失败,从微信获取信息失败',
+            showCancel: false,
+            success: res => {
+              if (res.confirm) {
+                wx.setStorageSync('has_login', false)
+                app.globalData.has_login = false
+                wx.switchTab({
+                  url: '../user/user',
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+  signOut: function(){
+    wx.request({
+      method: 'DELETE',
+      url: 'http://172.26.110.154:7198/users/session',
+      success: res => {
+        if(res.data.msg == "ok"){
+          Toast.success({
+            message: "退出登录成功!",
+            mask: true,
+            onClose: function () {
+              wx.switchTab({
+                url: '../user/user',
+              })
+            }
+          })
+        } else {
+          wx.showModal({
+            title: '退出登录失败',
+            content: '你尚未登录',
             showCancel: false,
             success: res => {
               if (res.confirm) {

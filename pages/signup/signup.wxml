@@ -7,7 +7,7 @@
 <view class="button-group">
   <van-row gutter="20" class="button-group">
     <van-col span="8" offset="5">
-      <van-button round plain type="danger" size="small" type="primary" bindtap='signUp'>注册 </van-button>
+      <van-button round plain size="small" type="primary" bindtap='signUp'>注册 </van-button>
     </van-col>
     <van-col span="8">
       <van-button round plain type="danger" size="small" bindtap='cancelSignUp'>取消 </van-button>

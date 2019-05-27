@@ -3,6 +3,7 @@
   "usingComponents": {
     "van-button": "../../UI/dist/button/index",
     "van-row": "../../UI/dist/row/index",
-    "van-col": "../../UI/dist/col/index"
+    "van-col": "../../UI/dist/col/index",
+    "van-toast": "../../UI/dist/toast/index"
   }
 }
