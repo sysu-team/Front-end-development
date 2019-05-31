@@ -26,7 +26,7 @@
   <view wx:for="{{delegations}}" wx:key="id">
     <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}" lazy-load="true" thumb-link = "../detail?id={{item.id}}">
       <view slot="footer">
-        <van-button size="mini" round plain type="primary" bindtap='acceptDelegation({{item.id}})'>接受委托</van-button>
+        <van-button data-id="{{item.id}}" size="mini" round plain type="primary" bindtap='acceptDelegation'>接受委托</van-button>
       </view>
     </van-card>
   </view>

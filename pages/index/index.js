@@ -137,7 +137,9 @@ Page({
       }
     })
   },
-  acceptDelegation: function(delegation_id) {
+  acceptDelegation: function(e) {
+    console.log(e.target)
+    var delegation_id = e.target.dataset.id
     console.log(delegation_id)
     wx.request({
       url: host + '/{' + delegation_id.toString() + '}',
