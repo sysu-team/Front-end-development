@@ -123,6 +123,7 @@ Page({
                 wx.setStorageSync('has_login', true)
                 app.globalData.has_login = true
                 this.setData({
+                  login: true,
                   name: res.data.data.name,
                   credits: res.data.data.credit
                 })
@@ -193,6 +194,11 @@ Page({
       url: 'http://172.26.110.154:7198/users/session',
       success: res => {
         if (res.data.code == 200) {
+          app.globalData.has_login = false
+          wx.setStorageSync('has_login', false)
+          this.setData({
+            login: false
+          })
           Toast.success({
             message: "退出登录成功!",
             mask: true,
@@ -202,8 +208,6 @@ Page({
               })
             }
           })
-          app.globalData.has_login = false
-          wx.setStorageSync('has_login', false)
         } else {
           app.globalData.has_login = false
           wx.setStorageSync('has_login', false)

@@ -26,7 +26,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '发布委托'
     })
-    var hour = new Date().getHours() + 1
+    var hour = new Date().getHours()
     var minute = new Date().getMinutes()
     this.setData({
       deadline: hour.toString() + ":" + ((minute < 10) ? "0" : "") + minute.toString()

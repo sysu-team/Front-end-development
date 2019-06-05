@@ -43,6 +43,7 @@ App({
     userInfo: null,
     has_login: false,
     res_code: null,
+    first_login: false
     //userName: ""
   },
   /*userLogin: 
