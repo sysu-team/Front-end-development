@@ -1,0 +1,33 @@
+<!--pages/publish/publish.wxml-->
+<van-cell-group>
+  <van-field value="{{name}}" required clearable label="委托名" left-icon="user-o" placeholder="请输入委托名" error-message="{{error_name}}" maxlength="12" icon="question-o" bind:click-icon="nameHelp" bind:change="nameChange" bind:blur="nameConfirm" />
+
+  <van-field size="large" value="{{description}}" type="textarea" label="委托描述" placeholder="请输入委托详情" clearable left-icon="info-o" error-message="{{error_desc}}" icon="question-o" autosize maxlength = "120" bind:click-icon="descriptionHelp" bind:change="descriptionChange"
+    bind:blur="descriptionConfirm" />
+
+  <van-field required left-icon="tosend" value="{{ deadline }}" center readonly label="截止时间" placeholder="请选择截止时间" use-button-slot>
+    <van-button slot="button" size="small" type="primary" bindtap='selectDeadline'>选择时间</van-button>
+  </van-field>
+
+  <van-field required left-icon="todo-list-o" value="{{ type }}" center readonly label="委托类型" placeholder="请选择类型" use-button-slot>
+    <van-button slot="button" size="small" type="primary" bindtap='selectType'>选择类型</van-button>
+  </van-field>
+
+  <van-cell icon="gold-coin-o" required title="报酬">
+    <van-stepper integer value="{{ reward }}" bind:change="rewardChange" />
+  </van-cell>
+</van-cell-group>
+<view class="button-group">
+  <van-row gutter="20" class="button-group">
+    <van-col span="8" offset="5">
+      <van-button round plain size="small" type="primary" bindtap='publish'>发布</van-button>
+    </van-col>
+    <van-col span="8">
+      <van-button round plain type="danger" size="small" bindtap='cancelPublish'>取消 </van-button>
+    </van-col>
+  </van-row>
+</view>
+<van-toast id="van-toast" />
+<van-picker wx:if="{{input_type}}" show-toolbar title="委托类型" columns="{{ types }}" bind:cancel="inputTypeCancel" bind:confirm="typeConfirm" visible-item-count="3" />
+<van-datetime-picker wx:if="{{input_deadline}}" type="time" value="{{ deadline }}"  bind:cancel="inputDeadlineCancel" bind:confirm = "deadlineConfirm"/>
+<!---wx:if={{input_type}}>

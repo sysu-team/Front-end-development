@@ -4,7 +4,8 @@
     "pages/user/user",
     "pages/logs/logs",
     "pages/signup/signup",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/publish/publish"
   ],
   "window": {
     "backgroundTextStyle": "light",

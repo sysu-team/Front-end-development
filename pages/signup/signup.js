@@ -103,6 +103,7 @@ Page({
                 mask: true,
                 onClose: function() {
                   app.globalData.has_login = true;
+                  wx.setStorageSync('has_login', true)
                   wx.switchTab({
                     url: '../user/user',
                   })

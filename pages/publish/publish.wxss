@@ -1,0 +1,4 @@
+/* pages/publish/publish.wxss */
+.button-group {
+  margin-top: 50rpx;
+}

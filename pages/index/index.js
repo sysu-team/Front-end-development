@@ -1,4 +1,4 @@
-//index.js
+//index.js 
 //获取应用实例
 import Toast from '../../UI/dist/toast/toast';
 const app = getApp()
@@ -138,6 +138,10 @@ Page({
     })
   },
   acceptDelegation: function(e) {
+    if (!app.globalData.has_login){
+      Toast.fail("你尚未登录,请前往\"我的->登录\"")
+      return
+    }
     console.log(e.target)
     var delegation_id = e.target.dataset.id
     console.log(delegation_id)
@@ -173,26 +177,13 @@ Page({
       }
     })
   },
-  //搜索框
-  showInput: function() {
-    this.setData({
-      inputShowed: true
-    });
-  },
-  hideInput: function() {
-    this.setData({
-      inputVal: "",
-      inputShowed: false
-    });
-  },
-  clearInput: function() {
-    this.setData({
-      inputVal: ""
-    });
-  },
-  inputTyping: function(e) {
-    this.setData({
-      inputVal: e.detail.value
-    });
+  publishDelegation: function(){
+    if (!app.globalData.has_login) {
+      Toast.fail("你尚未登录,请前往\"我的->登录\"")
+      return
+    }
+    wx.navigateTo({
+      url: '../publish/publish',
+    })
   }
 })
