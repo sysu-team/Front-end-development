@@ -16,7 +16,9 @@ Page({
     reward: 5,
     input_type: false,
     input_deadline: false,
-    types: ["取快递","拿外卖","买东西"]
+    types: ["取快递","拿外卖","买东西"],
+    min_minute: (new Date().getMinutes()+15)%60,
+    min_hour: (new Date().getMinutes() + 15 >= 60) ? new Date().getHours() + 1 : new Date().getHours()
   },
 
   /**
@@ -26,8 +28,8 @@ Page({
     wx.setNavigationBarTitle({
       title: '发布委托'
     })
-    var hour = new Date().getHours()
-    var minute = new Date().getMinutes()
+    var minute = (new Date().getMinutes() +15)%60
+    var hour = (new Date().getMinutes() + 15 >= 60) ? new Date().getHours() + 1 : new Date().getHours()
     this.setData({
       deadline: hour.toString() + ":" + ((minute < 10) ? "0" : "") + minute.toString()
     })
@@ -114,6 +116,11 @@ Page({
       Toast.fail("格式错误")
       return
     }
+    var hour = parseInt(this.data.deadline.slice(0,2))
+    var minute = parseInt(this.data.deadline.slice(3))
+    var date = new Date()
+    date.setHours(hour)
+    date.setMinutes(minute)
     wx.request({
       method: "POST",
       url: host,
@@ -121,7 +128,7 @@ Page({
         name: this.data.name,
         description: this.data.description,
         reward: this.data.reward,
-        deadline: this.data.deadline,
+        deadline: parseInt(date.getTime()/1000),
         type: this.data.type
       },
       success: res=>{
@@ -130,7 +137,7 @@ Page({
           Toast.success({
             mask:true,
             message: "发布成功",
-            success: function(){
+            onClose: function(){
               wx.switchTab({
                 url: '../logs/logs',
               })

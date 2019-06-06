@@ -29,5 +29,5 @@
 </view>
 <van-toast id="van-toast" />
 <van-picker wx:if="{{input_type}}" show-toolbar title="委托类型" columns="{{ types }}" bind:cancel="inputTypeCancel" bind:confirm="typeConfirm" visible-item-count="3" />
-<van-datetime-picker wx:if="{{input_deadline}}" type="time" value="{{ deadline }}"  bind:cancel="inputDeadlineCancel" bind:confirm = "deadlineConfirm"/>
+<van-datetime-picker wx:if="{{input_deadline}}" type="time" min-hour="{{min_hour}}" value="{{ deadline }}"  bind:cancel="inputDeadlineCancel" bind:confirm = "deadlineConfirm"/>
 <!---wx:if={{input_type}}>

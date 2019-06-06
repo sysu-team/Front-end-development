@@ -1,4 +1,5 @@
 //app.js
+import './miniprogram_npm/weapp-cookie/index'
 App({
   onLaunch: function() {
     //this.userLogin();

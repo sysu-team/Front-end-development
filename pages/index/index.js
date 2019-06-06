@@ -5,13 +5,8 @@ const app = getApp()
 const host = "http://172.26.110.154:7198/delegations"
 Page({
   data: {
-    delegations: [{
-      name: "test",
-      reward: 10.00,
-      id: 0,
-      description: "test"
-    }],
-    page: 0,
+    delegations: [],
+    page: 1,
     limit: 10,
     img: "../../../source/image/订单.png",
     loadmore: false
@@ -21,6 +16,7 @@ Page({
   onLoad: function() {
     var url = host + "?page=" + this.data.page.toString() + "&limit=" + this.data.limit.toString()
     console.log(url)
+    var that = this
     wx.showLoading({
       mask: true,
       title: '正在加载',
@@ -31,16 +27,17 @@ Page({
             setTimeout(function() {
               wx.hideLoading()
             }, 1200)
-            console.log(res)
-            var arr = this.data.delegations.concat(res.data.data)
-            console.log(arr)
-            this.setData({
+            var  arr = res.data.data
+            arr.forEach(obj => {
+              obj.deadline = new Date(obj.deadline * 1000).toLocaleString
+            })
+            that.setData({
               delegations: arr,
             })
             var pagination = res.data.pagination
-            if (pagination.total == this.data.limit) {
-              this.setData({
-                page: this.data.page + 1
+            if (pagination.total == that.data.limit) {
+              that.setData({
+                page: that.data.page + 1
               })
             }
           },
@@ -56,15 +53,23 @@ Page({
       }
     })
   },
+  onShow: function(){
+    wx.startPullDownRefresh({
+      success: function(){
+        console.log("refreshing")
+      }
+    })
+  },
   onPullDownRefresh: function() {
     this.setData({
-      page: 0,
+      page: 1,
       limit: 10,
       delegations: [],
       loadmore: false
     })
     var url = host + "?page=" + this.data.page.toString() + "&limit=" + this.data.limit.toString()
     console.log(url)
+    var that = this
     wx.showLoading({
       mask: true,
       title: '正在加载',
@@ -76,16 +81,18 @@ Page({
               wx.hideLoading()
               wx.stopPullDownRefresh()
             }, 1200)
-            console.log(res)
-            var arr = this.data.delegations.concat(res.data.data)
-            console.log(arr)
-            this.setData({
+            console.log(res.data.data)
+            var arr = res.data.data
+            arr.forEach(obj => {
+              obj.deadline = new Date(obj.deadline * 1000).toLocaleString
+            })
+            that.setData({
               delegations: arr,
             })
             var pagination = res.data.pagination
-            if (pagination.total == this.data.limit) {
-              this.setData({
-                page: this.data.page + 1
+            if (pagination.total == that.data.limit) {
+              that.setData({
+                page: that.data.page + 1
               })
             }
           },
@@ -117,7 +124,10 @@ Page({
           loadmore: false
         })
         console.log(res)
-        var arr = this.data.delegations.concat(res.data.data)
+        var arr = res.data.data
+        arr.forEach(obj => {
+          obj.deadline = new Date(obj.deadline * 1000).toLocaleString
+        })
         console.log(arr)
         this.setData({
           delegations: arr,
@@ -145,22 +155,26 @@ Page({
     console.log(e.target)
     var delegation_id = e.target.dataset.id
     console.log(delegation_id)
+    var url = host + '/' + delegation_id.toString()
+    console.log(url)
     wx.request({
-      url: host + '/{' + delegation_id.toString() + '}',
-      success: res => function() {
+      method: "PUT",
+      url: url,
+      success: res =>{
         var code = res.data.code
+        console.log(code)
         if (code == 200) {
           Toast.success({
             message: "委托接受成功",
             onClose: function() {
               wx.switchTab({
-                url: '../logs',
+                url: '../logs/logs',
               })
             }
           })
         } else if (code == 401) {
           Toast.fail({
-            message: "委托接受失败,该委托已被他人接受或过期",
+            message: "委托接受失败",
             onClose: function() {
               wx.startPullDownRefresh()
             }
