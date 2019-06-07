@@ -7,6 +7,7 @@ Page({
    */
   data: {
     reject: false,
+    finish: false,
     imageURL: "../../source/image/detail.jpg",
     desc: "",
     money: ""
@@ -36,16 +37,42 @@ Page({
       }
     })
   },
+  finishOrder: function(){
+    this.setData({
+      finish: true
+    })
 
+    wx.setStorageSync('finish', this.data.finish);
+    var array = wx.getStorageSync('array');
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].desc == this.data.desc) {
+        array[i].finish = this.data.finish;
+        break;
+      }
+    }
+    wx.setStorageSync('array', array);
+    Toast.success({
+      message: '完成订单',
+      mask: true,
+      onClose: function () {
+        wx.switchTab({
+          url: '../logs/logs',
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var descr = wx.getStorageSync('description')
-    wx.setStorageSync('reject', this.data.reject)
+    var descr = wx.getStorageSync('description');
+    wx.setStorageSync('reject', this.data.reject);
+    wx.setStorageSync('finish', this.data.finish);
     this.setData({
       desc: descr.desc,
-      money: descr.money.substring(1, 3)
+      money: descr.money.substring(1, 3),
+      reject: descr.reject,
+      finish: descr.finish
     })
   },
 
@@ -60,7 +87,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.setStorageSync('reject', this.data.reject)
+    wx.setStorageSync('reject', this.data.reject);
+    wx.setStorageSync('finish', this.data.finish);
   },
 
   /**
