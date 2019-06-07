@@ -1,11 +1,10 @@
 /**index.wxss**/
 @import "../../UI/weui.wxss";
 
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
+#publish_button {
+  padding-bottom: 20rpx;
+  padding-top: 20rpx;
+  text-align: center;
+  border-top: 1rpx solid #e5e5e5;
+  border-bottom: 1rpx solid #e5e5e5;
 }

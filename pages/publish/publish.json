@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+    "van-cell": "../../UI/dist/cell/index",
+    "van-cell-group": "../../UI/dist/cell-group/index",
+    "van-button": "../../UI/dist/button/index",
+    "van-field": "../../UI/dist/field/index",
+    "van-row": "../../UI/dist/row/index",
+    "van-col": "../../UI/dist/col/index",
+    "van-toast": "../../UI/dist/toast/index",
+    "van-picker": "../../UI/dist/picker/index",
+    "van-stepper": "../../UI/dist/stepper/index",
+    "van-datetime-picker": "../../UI/dist/datetime-picker/index"
+  }
+}
