@@ -1,5 +1,7 @@
 // pages/detail/detail.js
 import Toast from '../../UI/dist/toast/toast';
+const app = getApp();
+const host = "http://172.26.110.154:7198/delegations";
 Page({
 
   /**
@@ -10,9 +12,23 @@ Page({
     finish: false,
     imageURL: "../../source/image/detail.jpg",
     desc: "",
-    money: ""
+    money: "",
+    activeNames: ['2'],
+    //委托详情
+    publisher: null,
+    receiver: null,
+    start_time: null,
+    reward: null,
+    description: null,
+    deadline: null,
+    type: null,
+    delegation_state: null
   },
-
+  onChange(event) {
+    this.setData({
+      activeNames: event.detail
+    });
+  },
   rejectOrder: function () {
     this.setData({
       reject: true
@@ -65,6 +81,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options.id);
     var descr = wx.getStorageSync('description');
     wx.setStorageSync('reject', this.data.reject);
     wx.setStorageSync('finish', this.data.finish);
@@ -73,7 +90,39 @@ Page({
       money: descr.money.substring(1, 3),
       reject: descr.reject,
       finish: descr.finish
+    });
+    //对接接口
+    var url = host + "/" + descr.id.toString();
+    console.log(url)
+    var that = this
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url,
+          success: res => {
+            setTimeout(function () {
+              wx.hideLoading()
+            }, 1200);
+            var result = res.data.data;
+            console.log(arr);
+            that.setData({
+              
+            })
+          },
+          fail: function () {
+            wx.hideLoading()
+            Toast.fail("加载失败,请稍后再试")
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+        Toast.fail("加载失败,请稍后再试")
+      }
     })
+    
   },
 
   /**

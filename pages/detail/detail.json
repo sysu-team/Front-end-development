@@ -2,7 +2,9 @@
   "usingComponents": {
     "van-card": "../../UI/dist/card/index",
     "van-button": "../../UI/dist/button/index",
-    "van-toast": "../../UI/dist/toast/index"
+    "van-toast": "../../UI/dist/toast/index",
+    "van-collapse": "../../UI/dist/collapse/index",
+    "van-collapse-item": "../../UI/dist/collapse-item/index"
   },
   "navigationBarTitleText": "详细信息",
   "navigationBarBackgroundColor": "#ccc"

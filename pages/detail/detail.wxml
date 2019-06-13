@@ -10,8 +10,12 @@
     desc="牌子名称，耐用性，型号等信息"
     />
   <view class='divLine'></view>
+  <van-collapse value="{{ activeNames }}" bind:change="onChange">
+    <van-collapse-item title="详细信息" name="1">
+      <view>{{detailInfo}}</view>
+    </van-collapse-item>
+  </van-collapse>
   <view class="weui-panel">
-      <view class="weui-panel__hd">其他信息</view>
       <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
               <view class="weui-media-box__title weui-media-box__title_in-text">时间：2017-06-02</view>
