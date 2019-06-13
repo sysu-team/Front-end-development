@@ -4,7 +4,7 @@
     <van-button size="small" round plain type="primary" bindtap='publishDelegation'>发布委托</van-button>
   </view>
   <view wx:for="{{delegations}}" wx:key="id">
-    <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}" tag = "{{item.deadline}}" lazy-load="true" thumb-link="../detail?id={{item.id}}">
+    <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}" tag = "{{item.deadline}}" lazy-load="true" thumb-link="../detail/detail?id={{item.id}}">
       <view slot="footer">
         <van-button data-id="{{item.id}}" size="mini" round plain type="primary" bindtap='acceptDelegation'>接受委托</van-button>
       </view>
