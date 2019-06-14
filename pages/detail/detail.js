@@ -110,17 +110,16 @@ Page({
             if(result.receiver == ""){
               result.receiver_name = "暂无";
             }
-            console.log(arr);
             that.setData({
               name: result.name,
-              publisher: result.publisher_name,
+              publisher: result.publisher,
               receiver: result.receiver_name,
               start_time: time.formatTime(result.start_time, 'Y/M/D h:m:s'),
               deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
               reward: result.reward,
               description: result.description,
               type: result.type,
-              delegation_state: result.delegation_state,
+              delegation_state: result.state,
             })
           },
           fail: function () {
