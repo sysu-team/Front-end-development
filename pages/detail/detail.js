@@ -1,5 +1,8 @@
 // pages/detail/detail.js
 import Toast from '../../UI/dist/toast/toast';
+const app = getApp();
+const host = "http://172.26.110.154:7198/delegations";
+var time = require("../../utils/util.js");
 Page({
 
   /**
@@ -10,9 +13,23 @@ Page({
     finish: false,
     imageURL: "../../source/image/detail.jpg",
     desc: "",
-    money: ""
+    money: "",
+    activeNames: ['1'],
+    //委托详情
+    publisher: null,
+    receiver: null,
+    start_time: null,
+    reward: null,
+    description: null,
+    deadline: null,
+    type: null,
+    delegation_state: null
   },
-
+  onChange(event) {
+    this.setData({
+      activeNames: event.detail
+    });
+  },
   rejectOrder: function () {
     this.setData({
       reject: true
@@ -74,7 +91,50 @@ Page({
       money: descr.money.substring(1, 3),
       reject: descr.reject,
       finish: descr.finish
+    });
+    //对接接口
+    var url = host + "/" + options.id.toString();
+    console.log(url)
+    var that = this
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url,
+          success: res => {
+            setTimeout(function () {
+              wx.hideLoading()
+            }, 1200);
+            var result = res.data.data;
+            if(result.receiver == ""){
+              result.receiver_name = "暂无";
+            }
+            console.log(arr);
+            that.setData({
+              name: result.name,
+              publisher: result.publisher_name,
+              receiver: result.receiver_name,
+              start_time: time.formatTime(result.start_time, 'Y/M/D h:m:s'),
+              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
+              reward: result.reward,
+              description: result.description,
+              type: result.type,
+              delegation_state: result.delegation_state,
+            })
+          },
+          fail: function () {
+            wx.hideLoading()
+            Toast.fail("加载失败,请稍后再试")
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+        Toast.fail("加载失败,请稍后再试")
+      }
     })
+    
   },
 
   /**

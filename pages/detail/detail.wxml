@@ -4,23 +4,27 @@
     <image src='../../source/image/detail.jpg'></image>
   </view>
   <van-card 
-    num="1"
-    price="{{money}}"
-    title="{{desc}}"
-    desc="牌子名称，耐用性，型号等信息"
+    price="{{reward}}"
+    title="{{name}}"
+    desc="{{type}}"
     />
   <view class='divLine'></view>
+  <van-collapse value="{{ activeNames }}" bind:change="onChange">
+    <van-collapse-item title="详细信息" name="1">
+      <view>{{description}}</view>
+    </van-collapse-item>
+  </van-collapse>
   <view class="weui-panel">
-      <view class="weui-panel__hd">其他信息</view>
       <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
-              <view class="weui-media-box__title weui-media-box__title_in-text">时间：2017-06-02</view>
-              <view class="weui-media-box__desc">快递描述：最好是申通快递</view>
+              <view class="weui-media-box__title weui-media-box__title_in-text">开始时间：{{start_time}}</view>
+              <view class="weui-media-box__title weui-media-box__title_in-text">截止时间：{{deadline}}</view>
+              <view class="weui-media-box__desc">{{delegation_state}}</view>
               <view class="weui-media-box__info">
                   <view class="weui-media-box__info__meta">发布人</view>
-                  <view class="weui-media-box__info__meta">哇哇哇哇哇</view>
-                  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">收件地址</view>
-                  <view class="weui-media-box__info__meta">火星</view>
+                  <view class="weui-media-box__info__meta">{{publisher}}</view>
+                  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">接受人</view>
+                  <view class="weui-media-box__info__meta">{{receiver}}</view>
               </view>
           </view>
       </view>
