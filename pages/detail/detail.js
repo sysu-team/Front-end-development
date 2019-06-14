@@ -2,6 +2,7 @@
 import Toast from '../../UI/dist/toast/toast';
 const app = getApp();
 const host = "http://172.26.110.154:7198/delegations";
+var time = require("../../utils/util.js");
 Page({
 
   /**
@@ -13,7 +14,7 @@ Page({
     imageURL: "../../source/image/detail.jpg",
     desc: "",
     money: "",
-    activeNames: ['2'],
+    activeNames: ['1'],
     //委托详情
     publisher: null,
     receiver: null,
@@ -92,7 +93,7 @@ Page({
       finish: descr.finish
     });
     //对接接口
-    var url = host + "/" + descr.id.toString();
+    var url = host + "/" + options.id.toString();
     console.log(url)
     var that = this
     wx.showLoading({
@@ -106,9 +107,20 @@ Page({
               wx.hideLoading()
             }, 1200);
             var result = res.data.data;
+            if(result.receiver == ""){
+              result.receiver_name = "暂无";
+            }
             console.log(arr);
             that.setData({
-              
+              name: result.name,
+              publisher: result.publisher_name,
+              receiver: result.receiver_name,
+              start_time: time.formatTime(result.start_time, 'Y/M/D h:m:s'),
+              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
+              reward: result.reward,
+              description: result.description,
+              type: result.type,
+              delegation_state: result.delegation_state,
             })
           },
           fail: function () {
