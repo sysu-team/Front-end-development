@@ -168,7 +168,7 @@ Page({
             message: "委托接受成功",
             onClose: function() {
               wx.switchTab({
-                url: '../logs/logs',
+                url: '../logs/logs?id=' + delegation_id.toString(),
               })
             }
           })
