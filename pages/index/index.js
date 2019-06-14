@@ -84,7 +84,7 @@ Page({
             console.log(res.data.data)
             var arr = res.data.data
             arr.forEach(obj => {
-              obj.deadline = new Date(obj.deadline * 1000).toLocaleString
+              obj.deadline = new Date(obj.deadline * 1000).toLocaleString()
             })
             that.setData({
               delegations: arr,
@@ -126,7 +126,7 @@ Page({
         console.log(res)
         var arr = res.data.data
         arr.forEach(obj => {
-          obj.deadline = new Date(obj.deadline * 1000).toLocaleString
+          obj.deadline = new Date(obj.deadline * 1000).toLocaleString()
         })
         console.log(arr)
         this.setData({
@@ -155,7 +155,7 @@ Page({
     console.log(e.target)
     var delegation_id = e.target.dataset.id
     console.log(delegation_id)
-    var url = host + '/' + delegation_id.toString()
+    var url = host + '/' + delegation_id.toString() +'/accept'
     console.log(url)
     wx.request({
       method: "PUT",
@@ -168,7 +168,7 @@ Page({
             message: "委托接受成功",
             onClose: function() {
               wx.switchTab({
-                url: '../logs/logs',
+                url: '../logs/logs?id=' + delegation_id.toString(),
               })
             }
           })
