@@ -167,8 +167,9 @@ Page({
           Toast.success({
             message: "委托接受成功",
             onClose: function() {
+              app.accept_del_id = delegation_id.toString()
               wx.switchTab({
-                url: '../logs/logs?id=' + delegation_id.toString(),
+                url: '../logs/logs',
               })
             }
           })

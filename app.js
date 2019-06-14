@@ -44,8 +44,8 @@ App({
     userInfo: null,
     has_login: false,
     res_code: null,
-    first_login: false
-    //userName: ""
+    first_login: false,
+    accept_del_id: ""
   },
   /*userLogin: 
   }*/
