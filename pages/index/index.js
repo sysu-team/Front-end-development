@@ -148,6 +148,9 @@ Page({
     })
   },
   acceptDelegation: function(e) {
+    var delegationIDs = wx.getStorageSync("delegationIDs") || [];
+    delegationIDs.unshift(e.target.dataset.id);
+    wx.setStorageSync("delegationIDs", delegationIDs);
     if (!app.globalData.has_login){
       Toast.fail("你尚未登录,请前往\"我的->登录\"")
       return
@@ -168,7 +171,7 @@ Page({
             message: "委托接受成功",
             onClose: function() {
               wx.switchTab({
-                url: '../logs/logs?id=' + delegation_id.toString(),
+                url: '../logs/logs',
               })
             }
           })
