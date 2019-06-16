@@ -3,11 +3,10 @@
   <view>
     <image src='../../source/image/detail.jpg'></image>
   </view>
-  <van-card 
-    price="{{reward}}"
-    title="{{name}}"
-    desc="{{type}}"
-    />
+  <van-card price="{{reward}}" desc="{{type}}" title="{{name}}" lazy-load="true" thumb="{{img}}">
+    
+
+  </van-card>
   <view class='divLine'></view>
   <van-collapse value="{{ activeNames }}" bind:change="onChange">
     <van-collapse-item title="详细信息" name="1">

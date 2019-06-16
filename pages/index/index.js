@@ -153,7 +153,8 @@ Page({
     })
   },
   acceptDelegation: function(e) {
-    var delegationIDs = wx.getStorageSync("delegationIDs") || [];
+    var delegationIDs = new Array();
+    delegationIDs = wx.getStorageSync("delegationIDs") || [];
     delegationIDs.unshift(e.target.dataset.id);
     wx.setStorageSync("delegationIDs", delegationIDs);
     if (!app.globalData.has_login){

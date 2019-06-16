@@ -6,7 +6,7 @@
       <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
         <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}">
           <view slot="footer">
-            <van-button size="mini" round plain type="primary" disabled='true'>已接受委托</van-button>
+            <van-button size="mini" round plain type="primary" disabled='true'>已接受</van-button>
             <view >截止时间:{{item.deadline}}</view>
           </view>
         </van-card>

@@ -15,6 +15,7 @@ Page({
     desc: "",
     money: "",
     activeNames: ['1'],
+    img: "../../../source/image/订单.png",
     //委托详情
     publisher: null,
     receiver: null,
@@ -82,16 +83,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id)
-    var descr = wx.getStorageSync('description');
-    wx.setStorageSync('reject', this.data.reject);
-    wx.setStorageSync('finish', this.data.finish);
-    this.setData({
-      desc: descr.desc,
-      money: descr.money.substring(1, 3),
-      reject: descr.reject,
-      finish: descr.finish
-    });
+    console.log("from: logs: ", options);
     //对接接口
     var url = host + "/" + options.id.toString();
     console.log(url)
@@ -107,19 +99,20 @@ Page({
               wx.hideLoading()
             }, 1200);
             var result = res.data.data;
-            if(result.receiver == ""){
+            console.log(result);
+            if(result.receiver_id == ""){
               result.receiver_name = "暂无";
             }
             that.setData({
-              name: result.name,
-              publisher: result.publisher,
+              name: result.delegation_name,
+              publisher: result.publisher_name,
               receiver: result.receiver_name,
               start_time: time.formatTime(result.start_time, 'Y/M/D h:m:s'),
               deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
               reward: result.reward,
               description: result.description,
-              type: result.type,
-              delegation_state: result.state,
+              type: result.delegation_type,
+              delegation_state: result.delegation_state,
             })
           },
           fail: function () {
