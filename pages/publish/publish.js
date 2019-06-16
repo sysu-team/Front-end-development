@@ -139,7 +139,7 @@ Page({
             message: "发布成功",
             onClose: function(){
               wx.switchTab({
-                url: '../logs/logs',
+                url: '../index/index',
               })
             }
           })
