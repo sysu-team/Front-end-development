@@ -8,13 +8,18 @@ Page({
     delegations: [],
     page: 1,
     limit: 10,
+    state: 0,
     img: "../../../source/image/订单.png",
     loadmore: false
   },
+  generateUrl() {
+    return host + "?page=" + this.data.page.toString()
+      + "&limit=" + this.data.limit.toString() + "&state=0"
+  },
   //事件处理函数
-
   onLoad: function() {
-    var url = host + "?page=" + this.data.page.toString() + "&limit=" + this.data.limit.toString()
+    // using new api
+    var url = this.generateUrl()
     console.log(url)
     var that = this
     wx.showLoading({
@@ -67,7 +72,7 @@ Page({
       delegations: [],
       loadmore: false
     })
-    var url = host + "?page=" + this.data.page.toString() + "&limit=" + this.data.limit.toString()
+    var url = this.generateUrl()
     console.log(url)
     var that = this
     wx.showLoading({
@@ -115,7 +120,7 @@ Page({
       loadmore: true,
       limit: this.data.limit * 2,
     })
-    var url = host + "?page=" + this.data.page.toString() + "&limit=" + this.data.limit.toString()
+    var url = this.generateUrl()
     console.log(url)
     wx.request({
       url: url,
