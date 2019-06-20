@@ -2,7 +2,7 @@
 <van-collapse value="{{ activeNames }}" bind:change="onChange">
   <van-collapse-item name="1">
     <view slot="title">已接受任务<van-icon name="question-o" /></view>
-    <view wx:for="{{unfinishedArray}}" wx:key="item">
+    <view wx:for="{{acceptedArray}}" wx:key="item">
       <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
         <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}">
           <view slot="footer">
@@ -19,17 +19,12 @@
     <view slot="title">已完成任务<van-icon name="question-o" /></view>
     <view wx:for="{{finished}}" wx:key="item">
       <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
-        <view bindtap='viewDetail' data-desc='{{item}}'>
-          <view class="weui-media-box weui-media-box_appmsg">
-            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <image class="weui-media-box__thumb" src="../../source/image/订单.png" />
-            </view>
-            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-              <view class="weui-media-box__title">简介： {{item.desc}}</view>
-              <view class="weui-media-box__desc">报酬： {{item.money}}</view>
-            </view>
+        <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}">
+          <view slot="footer">
+            <van-button size="mini" round plain type="primary" disabled='true'>已完成</van-button>
+            <view >截止时间:{{item.deadline}}</view>
           </view>
-        </view>
+        </van-card>
         <view slot="right" data-desc='{{item}}' bindtap='deleteTask'>删除</view>
       </van-swipe-cell>
       <view class='divLine'></view>
@@ -37,19 +32,14 @@
   </van-collapse-item>
   <van-collapse-item name="3">
     <view slot="title">已发布任务<van-icon name="question-o" /></view>
-    <view wx:for="{{publishedArray}}" wx:key="item">
+    <view wx:for="{{myPublishArray}}" wx:key="item">
       <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
-        <view bindtap='viewDetail' data-desc='{{item}}'>
-          <view class="weui-media-box weui-media-box_appmsg">
-            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <image class="weui-media-box__thumb" src="../../source/image/订单.png" />
-            </view>
-            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-              <view class="weui-media-box__title">简介： {{item.desc}}</view>
-              <view class="weui-media-box__desc">报酬： {{item.money}}</view>
-            </view>
+        <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}">
+          <view slot="footer">
+            <van-button size="mini" round plain type="primary" disabled='true'>已发布</van-button>
+            <view >截止时间:{{item.deadline}}</view>
           </view>
-        </view>
+        </van-card>
         <view slot="right" data-desc='{{item}}' bindtap='deleteTask'>删除</view>
       </van-swipe-cell>
       <view class='divLine'></view>

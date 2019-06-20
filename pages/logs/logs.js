@@ -2,11 +2,13 @@
 const time = require('../../utils/util.js');
 const app = getApp();
 import Toast from '../../UI/dist/toast/toast';
-const host = "http://172.26.110.154:7198/delegations";
+const host = "http://172.26.110.154:7198/users";
 Page({
   data: {
+    page: 1,
+    limit: 10,
     allArray: null,
-    unfinishedArray: null,
+    acceptedArray: null,
     finished: null,
     myPublishArray: null,
     activeNames: ['1'],
@@ -17,68 +19,133 @@ Page({
       activeNames: event.detail
     });
   },
+  generateUrl(state) {
+    return host +"/" + "111" + "?page=" + this.data.page.toString()
+      + "&limit=" + this.data.limit.toString() + "&state="+state.toString();
+  },
   onLoad: function (options) {
     if (!app.globalData.has_login) {
       Toast.fail("你尚未登录,请前往\"我的->登录\"")
       return
     }
 
-    //link for accept task
-    var delegationIDs = wx.getStorageSync("delegationIDs");
+    //link for accepted task
     var acceptedTasks = new Array();
-    if(delegationIDs.length == 0){
-      return;
-    }
-    console.log(delegationIDs.length);
-    for(var i=0; i<delegationIDs.length; i++){
-      var url = host + "/" + delegationIDs[i];
-      var that = this
-      wx.showLoading({
-        mask: true,
-        title: '正在加载',
-        success: function () {
-          wx.request({
-            url: url,
-            success: res => {
-              setTimeout(function () {
-                wx.hideLoading()
-              }, 1200);
-              var result = res.data.data;
-              console.log(result.delegation_name);
-              var task = {
-                name: result.delegation_name,
-                reward: result.reward,
-                deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
-                description: result.description,
-                id: delegationIDs[i]
-              }
-              acceptedTasks.push(task);
-              that.setData({
-                unfinishedArray: acceptedTasks
-              })
-            },
-            fail: function () {
+    var url = this.generateUrl(0);
+    var that = this
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url,
+          success: res => {
+            setTimeout(function () {
               wx.hideLoading()
-              Toast.fail("加载失败,请稍后再试")
+            }, 1200);
+            var result = res.data.data;
+            var task = {
+              name: result.name,
+              reward: result.reward,
+              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
+              description: result.description,
+              id: result.id
             }
-          })
-        },
-        fail: function () {
-          wx.hideLoading()
-          Toast.fail("加载失败,请稍后再试")
-        }
-      })
-    }
+            acceptedTasks.push(task);
+            that.setData({
+              acceptedArray: acceptedTasks
+            })
+          },
+          fail: function () {
+            wx.hideLoading()
+            Toast.fail("加载失败,请稍后再试")
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+        Toast.fail("加载失败,请稍后再试")
+      }
+    });
 
     //link for finished task
+    var finishedTasks = new Array();
+    var url2 = this.generateUrl(1);
+    var that = this
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url2,
+          success: res => {
+            setTimeout(function () {
+              wx.hideLoading()
+            }, 1200);
+            var result = res.data.data;
+            var task = {
+              name: result.name,
+              reward: result.reward,
+              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
+              description: result.description,
+              id: result.id
+            }
+            finishedTasks.push(task);
+            that.setData({
+              finished: finishedTasks
+            })
+          },
+          fail: function () {
+            wx.hideLoading()
+            Toast.fail("加载失败,请稍后再试")
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+        Toast.fail("加载失败,请稍后再试")
+      }
+    });
 
+    //link for published task
+    var publishedTasks = new Array();
+    var url3 = this.generateUrl(2);
+    var that = this
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url3,
+          success: res => {
+            setTimeout(function () {
+              wx.hideLoading()
+            }, 1200);
+            var result = res.data.data;
+            var task = {
+              name: result.name,
+              reward: result.reward,
+              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
+              description: result.description,
+              id: result.id
+            }
+            publishedTasks.push(task);
+            that.setData({
+              myPublishArray: publishedTasks
+            })
+          },
+          fail: function () {
+            wx.hideLoading()
+            Toast.fail("加载失败,请稍后再试")
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+        Toast.fail("加载失败,请稍后再试")
+      }
+    });
   },
-  // viewDetail: function (e) {
-  //   wx.setStorageSync("description", e.currentTarget.dataset.desc)
-  //   wx.navigateTo({
-  //     url: '../detail/detail',
-  //   })
-  // },
   // deleteTask: function(e){
   //   var arr = wx.getStorageSync('array');
   //   this.setData({
@@ -111,53 +178,123 @@ Page({
       return
     }
 
-    //link for accept task
-    var delegationIDs = wx.getStorageSync("delegationIDs");
+    //link for accepted task
     var acceptedTasks = new Array();
-    if (delegationIDs.length == 0) {
-      return;
-    }
-    console.log(delegationIDs.length);
-    for (var i = 0; i < delegationIDs.length; i++) {
-      var url = host + "/" + delegationIDs[i];
-      app.globalData.accept_del_id = delegationIDs[i];
-      var that = this
-      wx.showLoading({
-        mask: true,
-        title: '正在加载',
-        success: function () {
-          wx.request({
-            url: url,
-            success: res => {
-              setTimeout(function () {
-                wx.hideLoading()
-              }, 1200);
-              var result = res.data.data;
-              console.log(result.delegation_name);
-              var task = {
-                name: result.delegation_name,
-                reward: result.reward,
-                deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
-                description: result.description,
-                id: app.globalData.accept_del_id
-              }
-              console.log("taskID: ",task.id);
-              acceptedTasks.push(task);
-              that.setData({
-                unfinishedArray: acceptedTasks
-              })
-            },
-            fail: function () {
+    var url = this.generateUrl(0);
+    var that = this
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url,
+          success: res => {
+            setTimeout(function () {
               wx.hideLoading()
-              Toast.fail("加载失败,请稍后再试")
+            }, 1200);
+            var result = res.data.data;
+            var task = {
+              name: result.name,
+              reward: result.reward,
+              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
+              description: result.description,
+              id: result.id
             }
-          })
-        },
-        fail: function () {
-          wx.hideLoading()
-          Toast.fail("加载失败,请稍后再试")
-        }
-      })
-    }
+            acceptedTasks.push(task);
+            that.setData({
+              acceptedArray: acceptedTasks
+            })
+          },
+          fail: function () {
+            wx.hideLoading()
+            Toast.fail("加载失败,请稍后再试")
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+        Toast.fail("加载失败,请稍后再试")
+      }
+    });
+
+    //link for finished task
+    var finishedTasks = new Array();
+    var url2 = this.generateUrl(1);
+    var that = this
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url2,
+          success: res => {
+            setTimeout(function () {
+              wx.hideLoading()
+            }, 1200);
+            var result = res.data.data;
+            var task = {
+              name: result.name,
+              reward: result.reward,
+              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
+              description: result.description,
+              id: result.id
+            }
+            finishedTasks.push(task);
+            that.setData({
+              finished: finishedTasks
+            })
+          },
+          fail: function () {
+            wx.hideLoading()
+            Toast.fail("加载失败,请稍后再试")
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+        Toast.fail("加载失败,请稍后再试")
+      }
+    });
+
+    //link for published task
+    var publishedTasks = new Array();
+    var url3 = this.generateUrl(2);
+    var that = this
+    wx.showLoading({
+      mask: true,
+      title: '正在加载',
+      success: function () {
+        wx.request({
+          url: url3,
+          success: res => {
+            setTimeout(function () {
+              wx.hideLoading()
+            }, 1200);
+            var result = res.data.data;
+            var task = {
+              name: result.name,
+              reward: result.reward,
+              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
+              description: result.description,
+              id: result.id
+            }
+            publishedTasks.push(task);
+            that.setData({
+              myPublishArray: publishedTasks
+            })
+          },
+          fail: function () {
+            wx.hideLoading()
+            Toast.fail("加载失败,请稍后再试")
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading()
+        Toast.fail("加载失败,请稍后再试")
+      }
+    });
+    
+    
   }
 })
