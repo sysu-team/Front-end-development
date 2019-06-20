@@ -8,9 +8,9 @@ Page({
     page: 1,
     limit: 10,
     allArray: null,
-    acceptedArray: null,
-    finished: null,
-    myPublishArray: null,
+    acceptedArray: [],
+    finished: [],
+    myPublishArray: [],
     activeNames: ['1'],
     img: "../../../source/image/订单.png",
   },
@@ -21,7 +21,7 @@ Page({
   },
   generateUrl(state) {
     return host + "?page=" + this.data.page.toString()
-      + "&limit=" + this.data.limit.toString() + "&state="+state.toString();
+      + "&limit=" + this.data.limit.toString() + "&query_type="+state.toString();
   },
   onLoad: function (options) {
     if (!app.globalData.has_login) {
@@ -31,7 +31,7 @@ Page({
 
     //link for accepted task
     var acceptedTasks = new Array();
-    var url = this.generateUrl(0);
+    var url = this.generateUrl(1);
     var that = this
     wx.showLoading({
       mask: true,
@@ -44,16 +44,12 @@ Page({
               wx.hideLoading()
             }, 1200);
             var result = res.data.data;
-            var task = {
-              name: result.name,
-              reward: result.reward,
-              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
-              description: result.description,
-              id: result.id
-            }
-            acceptedTasks.push(task);
+            console.log("1: ", result);
+            result.forEach(obj => {
+              obj.deadline = time.formatTime(result.deadline, 'Y/M/D h:m:s')
+            })
             that.setData({
-              acceptedArray: acceptedTasks
+              acceptedArray: result
             })
           },
           fail: function () {
@@ -70,7 +66,7 @@ Page({
 
     //link for finished task
     var finishedTasks = new Array();
-    var url2 = this.generateUrl(1);
+    var url2 = this.generateUrl(2);
     var that = this
     wx.showLoading({
       mask: true,
@@ -83,16 +79,13 @@ Page({
               wx.hideLoading()
             }, 1200);
             var result = res.data.data;
-            var task = {
-              name: result.name,
-              reward: result.reward,
-              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
-              description: result.description,
-              id: result.id
-            }
-            finishedTasks.push(task);
+            if(result.length == 0) return;
+            console.log("2: ", result);
+            result.forEach(obj => {
+              obj.deadline = time.formatTime(result.deadline, 'Y/M/D h:m:s')
+            })
             that.setData({
-              finished: finishedTasks
+              finished: result
             })
           },
           fail: function () {
@@ -109,7 +102,7 @@ Page({
 
     //link for published task
     var publishedTasks = new Array();
-    var url3 = this.generateUrl(2);
+    var url3 = this.generateUrl(0);
     var that = this
     wx.showLoading({
       mask: true,
@@ -122,17 +115,15 @@ Page({
               wx.hideLoading()
             }, 1200);
             var result = res.data.data;
-            var task = {
-              name: result.name,
-              reward: result.reward,
-              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
-              description: result.description,
-              id: result.id
-            }
-            publishedTasks.push(task);
-            that.setData({
-              myPublishArray: publishedTasks
+            if(result.length == 0) return;
+            console.log("0: ", result[0].name);
+            result.forEach(obj => {
+              obj.deadline = time.formatTime(result.deadline, 'Y/M/D h:m:s')
             })
+            that.setData({
+              myPublishArray: result
+            })
+            console.log("data: ", that.data.myPublishArray[0].name);
           },
           fail: function () {
             wx.hideLoading()
@@ -180,7 +171,7 @@ Page({
 
     //link for accepted task
     var acceptedTasks = new Array();
-    var url = this.generateUrl(0);
+    var url = this.generateUrl(1);
     var that = this
     wx.showLoading({
       mask: true,
@@ -193,16 +184,12 @@ Page({
               wx.hideLoading()
             }, 1200);
             var result = res.data.data;
-            var task = {
-              name: result.name,
-              reward: result.reward,
-              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
-              description: result.description,
-              id: result.id
-            }
-            acceptedTasks.push(task);
+            console.log("1: ", result);
+            result.forEach(obj => {
+              obj.deadline = time.formatTime(obj.deadline, 'Y/M/D h:m:s')
+            })
             that.setData({
-              acceptedArray: acceptedTasks
+              acceptedArray: result
             })
           },
           fail: function () {
@@ -219,7 +206,7 @@ Page({
 
     //link for finished task
     var finishedTasks = new Array();
-    var url2 = this.generateUrl(1);
+    var url2 = this.generateUrl(2);
     var that = this
     wx.showLoading({
       mask: true,
@@ -232,16 +219,13 @@ Page({
               wx.hideLoading()
             }, 1200);
             var result = res.data.data;
-            var task = {
-              name: result.name,
-              reward: result.reward,
-              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
-              description: result.description,
-              id: result.id
-            }
-            finishedTasks.push(task);
+            if (result.length == 0) return;
+            console.log("2: ", result);
+            result.forEach(obj => {
+              obj.deadline = time.formatTime(obj.deadline, 'Y/M/D h:m:s')
+            })
             that.setData({
-              finished: finishedTasks
+              finished: result
             })
           },
           fail: function () {
@@ -258,7 +242,7 @@ Page({
 
     //link for published task
     var publishedTasks = new Array();
-    var url3 = this.generateUrl(2);
+    var url3 = this.generateUrl(0);
     var that = this
     wx.showLoading({
       mask: true,
@@ -271,17 +255,15 @@ Page({
               wx.hideLoading()
             }, 1200);
             var result = res.data.data;
-            var task = {
-              name: result.name,
-              reward: result.reward,
-              deadline: time.formatTime(result.deadline, 'Y/M/D h:m:s'),
-              description: result.description,
-              id: result.id
-            }
-            publishedTasks.push(task);
-            that.setData({
-              myPublishArray: publishedTasks
+            if (result.length == 0) return;
+            console.log("0: ", result[0].name);
+            result.forEach(obj => {
+              obj.deadline = new Date(obj.deadline * 1000).toLocaleString()
             })
+            that.setData({
+              myPublishArray: result
+            })
+            console.log("data: ", that.data.myPublishArray[0].name);
           },
           fail: function () {
             wx.hideLoading()

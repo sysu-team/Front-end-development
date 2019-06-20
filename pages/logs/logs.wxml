@@ -2,7 +2,7 @@
 <van-collapse value="{{ activeNames }}" bind:change="onChange">
   <van-collapse-item name="1">
     <view slot="title">已接受任务<van-icon name="question-o" /></view>
-    <view wx:for="{{acceptedArray}}" wx:key="item">
+    <view wx:for="{{acceptedArray}}" wx:key="id">
       <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
         <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}">
           <view slot="footer">
