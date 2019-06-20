@@ -2,7 +2,7 @@
 const time = require('../../utils/util.js');
 const app = getApp();
 import Toast from '../../UI/dist/toast/toast';
-const host = "http://172.26.110.154:7198/users";
+const host = "http://172.26.110.154:7198/users/delegations";
 Page({
   data: {
     page: 1,
@@ -20,7 +20,7 @@ Page({
     });
   },
   generateUrl(state) {
-    return host +"/" + "111" + "?page=" + this.data.page.toString()
+    return host + "?page=" + this.data.page.toString()
       + "&limit=" + this.data.limit.toString() + "&state="+state.toString();
   },
   onLoad: function (options) {
