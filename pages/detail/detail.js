@@ -1,7 +1,7 @@
 // pages/detail/detail.js
 import Toast from '../../UI/dist/toast/toast';
 const app = getApp();
-const host = "http://172.26.110.154:7198/delegations";
+const host = "http://172.26.94.161:7198/delegations";
 var time = require("../../utils/util.js");
 Page({
 
@@ -24,57 +24,75 @@ Page({
     description: null,
     deadline: null,
     type: null,
-    delegation_state: null
+    delegation_state: null,
+    delegation_id: null,
+    delegation_button: ""
   },
   onChange(event) {
     this.setData({
       activeNames: event.detail
     });
   },
+  //取消委托
   rejectOrder: function () {
-    this.setData({
-      reject: true
-    })
-
-    wx.setStorageSync('reject', this.data.reject);
-    var array = wx.getStorageSync('array');
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].desc == this.data.desc) {
-        array[i].reject = this.data.reject;
-        break;
-      }
-    }
-    wx.setStorageSync('array', array);
-    Toast.success({
-      message: '取消成功',
-      mask: true,
-      onClose: function () {
-        wx.switchTab({
-          url: '../logs/logs',
+    console.log("cancel id : ", this.data.delegation_id);
+    var url = host + "/" + this.data.delegation_id.toString() + "/cancel";
+    wx.request({
+      method: "PUT",
+      url: url,
+      success: res => {
+        var code = res.data.code
+        console.log(code)
+        if (code == 200) {
+          Toast.success({
+            message: "委托取消成功",
+            onClose: function () {
+              wx.switchTab({
+                url: '../logs/logs',
+              })
+            }
+          })
+        } else if (code == 401) {
+          Toast.fail({
+            message: "委托取消失败",
+          })
+        }
+      },
+      fail: function () {
+        Toast.fail({
+          message: "委托取消失败",
         })
       }
     })
   },
+  //完成委托
   finishOrder: function(){
-    this.setData({
-      finish: true
-    })
-
-    wx.setStorageSync('finish', this.data.finish);
-    var array = wx.getStorageSync('array');
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].desc == this.data.desc) {
-        array[i].finish = this.data.finish;
-        break;
-      }
-    }
-    wx.setStorageSync('array', array);
-    Toast.success({
-      message: '完成订单',
-      mask: true,
-      onClose: function () {
-        wx.switchTab({
-          url: '../logs/logs',
+    console.log("finish id : ", this.data.delegation_id);
+    var url = host + "/" + this.data.delegation_id.toString() + "/finish";
+    wx.request({
+      method: "PUT",
+      url: url,
+      success: res => {
+        var code = res.data.code
+        console.log(code)
+        if (code == 200) {
+          Toast.success({
+            message: "委托完成成功",
+            onClose: function () {
+              wx.switchTab({
+                url: '../logs/logs',
+              })
+            }
+          })
+        } else if (code == 401) {
+          Toast.fail({
+            message: "委托完成失败",
+          })
+        }
+      },
+      fail: function () {
+        Toast.fail({
+          message: "委托完成失败",
         })
       }
     })
@@ -83,6 +101,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      delegation_id: options.id
+    });
+    if(options.isPublish == "yes"){
+      this.setData({
+        delegation_button: "确认委托完成"
+      })
+    }
+    else{
+      this.setData({
+        delegation_button: "完成委托"
+      })
+    }
     console.log("from: logs: ", options);
     //对接接口
     var url = host + "/" + options.id.toString();
@@ -139,9 +170,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    wx.setStorageSync('reject', this.data.reject);
-    wx.setStorageSync('finish', this.data.finish);
+  onShow: function (options) {
+
   },
 
   /**

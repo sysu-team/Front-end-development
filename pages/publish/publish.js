@@ -1,6 +1,6 @@
 // pages/publish/publish.js
 import Toast from '../../UI/dist/toast/toast';
-const host = "http://172.26.110.154:7198/delegations"
+const host = "http://172.26.94.161:7198/delegations"
 Page({
 
   /**

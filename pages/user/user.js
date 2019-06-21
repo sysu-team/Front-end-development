@@ -25,7 +25,7 @@ Page({
         login: app.globalData.has_login
       })
       wx.request({
-        url: 'http://172.26.110.154:7198/users/me',
+        url: 'http://172.26.94.161:7198/users/me',
         method: 'GET',
         success: res => {
           console.log(res, "get_user")
@@ -113,7 +113,7 @@ Page({
           // 发起网络请求
           wx.request({
             method: 'POST',
-            url: 'http://172.26.110.154:7198/users/session',
+            url: 'http://172.26.94.161:7198/users/session',
             data: {
               code: res.code
             },
@@ -191,7 +191,7 @@ Page({
   signOut: function () {
     wx.request({
       method: 'DELETE',
-      url: 'http://172.26.110.154:7198/users/session',
+      url: 'http://172.26.94.161:7198/users/session',
       success: res => {
         if (res.data.code == 200) {
           app.globalData.has_login = false

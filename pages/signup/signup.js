@@ -87,7 +87,7 @@ Page({
         app.globalData.res_code = res.code
         console.log(app.globalData.res_code,res.code,"signup")
         wx.request({
-          url: 'http://172.26.110.154:7198/users',
+          url: 'http://172.26.94.161:7198/users',
           method: 'POST',
           data: {
             code: res.code,

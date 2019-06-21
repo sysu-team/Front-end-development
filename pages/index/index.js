@@ -2,7 +2,7 @@
 //获取应用实例
 import Toast from '../../UI/dist/toast/toast';
 const app = getApp()
-const host = "http://172.26.110.154:7198/delegations"
+const host = "http://172.26.94.161:7198/delegations"
 Page({
   data: {
     delegations: [],

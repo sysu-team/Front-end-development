@@ -2,7 +2,7 @@
 const time = require('../../utils/util.js');
 const app = getApp();
 import Toast from '../../UI/dist/toast/toast';
-const host = "http://172.26.110.154:7198/users/delegations";
+const host = "http://172.26.94.161:7198/users/delegations";
 Page({
   data: {
     page: 1,
@@ -23,6 +23,10 @@ Page({
     return host + "?page=" + this.data.page.toString()
       + "&limit=" + this.data.limit.toString() + "&query_type="+state.toString();
   },
+  deleteTask: function(){
+    
+  },
+
   onLoad: function (options) {
     if (!app.globalData.has_login) {
       Toast.fail("你尚未登录,请前往\"我的->登录\"")
