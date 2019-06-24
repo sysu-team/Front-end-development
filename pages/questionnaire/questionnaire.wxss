@@ -1,0 +1,43 @@
+/* pages/questionnaire/questionnaire.wxss */
+
+#begin-button-group {
+  margin-top: 35%;
+  text-align: center;
+}
+
+/*#begin-button-group van-button {
+  display: block;
+}*/
+
+.group {
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+
+.group1 {
+  margin-top: 50rpx !important;
+  width: 200rpx;
+}
+
+.topic {
+  font-weight: bold;
+  text-align: left;
+  font-size: 15px;
+}
+
+.value-class {
+  text-align: left !important;
+  margin-top: 10rpx;
+  padding-left: 30rpx;
+}
+
+#option-button {
+  display: block;
+  margin-top: 50rpx;
+}
+
+.delete-button {
+  float:right;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
