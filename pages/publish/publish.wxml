@@ -17,8 +17,12 @@
     <van-stepper integer value="{{ reward }}" bind:change="rewardChange" />
   </van-cell>
 
-  <van-cell icon="description" required title="问卷" wx:if="{{type=='填写问卷'}}">
-    <van-button size="small" type="primary" bindtap='goToQuestions'>生成问卷</van-button>
+  <van-field required left-icon="description" value="{{title}}" required label="问卷" placeholder="请输入问卷名" wx:if="{{type=='填写问卷'}}" bind:change="titleChange">
+    <van-button slot="button" size="small" type="primary" bindtap='goToQuestions'>生成问卷</van-button>
+  </van-field>
+
+  <van-cell icon="discount" required title="问卷数" wx:if="{{type=='填写问卷'}}">
+    <van-stepper integer value="{{ number }}" bind:change="numberChange" />
   </van-cell>
 
 </van-cell-group>

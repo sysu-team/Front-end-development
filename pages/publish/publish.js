@@ -18,7 +18,9 @@ Page({
     input_deadline: false,
     types: ["填写问卷","取快递","拿外卖","买东西"],
     min_minute: (new Date().getMinutes()+15)%60,
-    min_hour: (new Date().getMinutes() + 15 >= 60) ? new Date().getHours() + 1 : new Date().getHours()
+    min_hour: (new Date().getMinutes() + 15 >= 60) ? new Date().getHours() + 1 : new Date().getHours(),
+    title: "",
+    number: 1
   },
 
   /**
@@ -111,8 +113,20 @@ Page({
       reward: e.detail
     })
   },
+  titleChange: function(e){
+    this.setData({
+      title: e.detail
+    })
+  },
+  numberChange: function (e) {
+    this.setData({
+      number: e.detail
+    })
+    console.log(this.data.number)
+  },
   publish: function(){
-    if (this.data.error_desc != "" || this.data.error_name != "" || this.data.name == ""||this.data.type==""){
+    if (this.data.error_desc != "" || this.data.error_name != "" || this.data.name == ""||this.data.type==""
+    ||this.data.title==""){
       Toast.fail("格式错误")
       return
     }
@@ -120,6 +134,10 @@ Page({
     if (this.data.type == "填写问卷" && questions.length==0){
       Toast.fail("发布问卷时,问卷不能为空")
       return
+    }
+    var questionnaire = {
+      title: this.data.title,
+      questions: questions
     }
     var hour = parseInt(this.data.deadline.slice(0,2))
     var minute = parseInt(this.data.deadline.slice(3))
@@ -134,7 +152,9 @@ Page({
         description: this.data.description,
         reward: this.data.reward,
         deadline: parseInt(date.getTime()/1000),
-        type: this.data.type
+        type: this.data.type,
+        questionnaire: questionnaire,
+        number: this.data.number
       },
       success: res=>{
         wx.removeStorageSync("questions")
