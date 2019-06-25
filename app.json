@@ -1,12 +1,16 @@
 {
   "pages": [
-    "pages/questiondetail/detail",
+<<<<<<< HEAD
+=======
+>>>>>>> 6f96fa04885a3424484f598cb24eff2db292e77f
     "pages/index/index",
     "pages/logs/logs",
     "pages/user/user",
     "pages/signup/signup",
     "pages/detail/detail",
-    "pages/publish/publish"
+    "pages/questionnaire/questionnaire",
+    "pages/publish/publish",
+    "pages/questiondetail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

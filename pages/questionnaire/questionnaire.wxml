@@ -1,0 +1,49 @@
+<!--pages/questionnaire/questionnaire.wxml-->
+<view>
+  <view wx:if="{{state=='begin'}}">
+    <view wx:if="{{questions.length > 0}}">
+      <van-cell-group>
+        <van-cell wx:for="{{questions}}" wx:key="index" wx:for-item="que">
+          <van-cell>
+            <view class="topic">题目{{index+1}}: {{que.topic}}
+            <van-button data-index="{{index}}" size="mini" type="danger" round custom-class="delete-button" bindtap="deleteQuestion">删除</van-button>
+            </view> 
+          </van-cell>
+          <van-checkbox-group>
+            <van-checkbox wx:for="{{ que.options }}" wx:key="index" x:for-item="opt" name="{{ opt }}" custom-class="value-class">
+              {{ item }}
+            </van-checkbox>
+          </van-checkbox-group>
+        </van-cell>
+      </van-cell-group>
+    </view>
+    <view id="begin-button-group">
+      <van-button size="normal" type="primary" round custom-class="group" bindtap="addQuestion">添加问题</van-button>
+      <van-button size="normal" type="primary" round custom-class="group" bindtap="completeQuestions">完成生成</van-button>
+      <van-button size="normal" type="danger" round custom-class="group" bindtap="goBackPublish">取消生成</van-button>
+    </view>
+  </view>
+  <view style="text-align: center;">
+    <van-button wx:if="{{state=='add'}}" size="normal" type="primary" id="add" round plain custom-class="group" bindtap="addTopic">添加题目</van-button>
+    <view wx:if="{{state=='topic'}}">
+      <van-field type="textarea" autosize value="{{ topic }}" placeholder="请输入题目" bind:change="onChangeTopic" />
+      <view>
+        <van-button size="normal" type="primary" round custom-class="group1" bindtap="addOptions"> 完成 </van-button>
+      </view>
+    </view>
+    <view wx:if="{{state=='options'}}">
+      <van-cell>
+        <view class="topic">题目: {{topic}}</view>
+      </van-cell>
+      <van-checkbox-group>
+        <van-checkbox wx:for="{{ options }}" wx:key="index" name="{{ item }}" custom-class="value-class">
+          {{ item }}
+        </van-checkbox>
+      </van-checkbox-group>
+      <van-field wx:if="{{input}}" value="{{ option }}" placeholder="请输入选项" bind:change="inputOption" />
+      <van-button size="small" type="primary" round id="option-button" bindtap="beginInput">{{button}}</van-button>
+      <van-button wx:if="{{!input}}" size="small" type="primary" round id="option-button" bindtap="completeInput">完成添加</van-button>
+    </view>
+  </view>
+</view>
+<van-toast id="van-toast" />

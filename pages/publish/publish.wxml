@@ -16,6 +16,11 @@
   <van-cell icon="gold-coin-o" required title="报酬">
     <van-stepper integer value="{{ reward }}" bind:change="rewardChange" />
   </van-cell>
+
+  <van-cell icon="description" required title="问卷" wx:if="{{type=='填写问卷'}}">
+    <van-button size="small" type="primary" bindtap='goToQuestions'>生成问卷</van-button>
+  </van-cell>
+
 </van-cell-group>
 <view class="button-group">
   <van-row gutter="20" class="button-group">

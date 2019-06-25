@@ -16,7 +16,7 @@ Page({
     reward: 5,
     input_type: false,
     input_deadline: false,
-    types: ["取快递","拿外卖","买东西"],
+    types: ["填写问卷","取快递","拿外卖","买东西"],
     min_minute: (new Date().getMinutes()+15)%60,
     min_hour: (new Date().getMinutes() + 15 >= 60) ? new Date().getHours() + 1 : new Date().getHours()
   },
@@ -116,6 +116,11 @@ Page({
       Toast.fail("格式错误")
       return
     }
+    var questions = wx.getStorageSync("questions")
+    if (this.data.type == "填写问卷" && questions.length==0){
+      Toast.fail("发布问卷时,问卷不能为空")
+      return
+    }
     var hour = parseInt(this.data.deadline.slice(0,2))
     var minute = parseInt(this.data.deadline.slice(3))
     var date = new Date()
@@ -132,6 +137,7 @@ Page({
         type: this.data.type
       },
       success: res=>{
+        wx.removeStorageSync("questions")
         var code = res.data.code
         if(code == 200){
           Toast.success({
@@ -154,8 +160,14 @@ Page({
     })
   },
   cancelPublish: function(){
+    wx.removeStorageSync("questions")
     wx.switchTab({
       url: '../index/index',
+    })
+  },
+  goToQuestions: function(){
+    wx.navigateTo({
+      url: '../questionnaire/questionnaire',
     })
   } 
 })
