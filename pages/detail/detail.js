@@ -37,31 +37,43 @@ Page({
   rejectOrder: function () {
     console.log("cancel id : ", this.data.delegation_id);
     var url = host + "/" + this.data.delegation_id.toString() + "/cancel";
-    wx.request({
-      method: "PUT",
-      url: url,
-      success: res => {
-        var code = res.data.code
-        console.log(code)
-        if (code == 200) {
-          Toast.success({
-            message: "委托取消成功",
-            onClose: function () {
-              wx.switchTab({
-                url: '../logs/logs',
+    wx.showModal({
+      title: '取消委托',
+      content: '是否确认取消委托',
+      success: function (res) {
+        console.log(res)
+        if (res.confirm) {
+          console.log('用户点击了确定')
+          wx.request({
+            method: "PUT",
+            url: url,
+            success: res => {
+              var code = res.data.code
+              console.log(code)
+              if (code == 200) {
+                Toast.success({
+                  message: "委托取消成功",
+                  onClose: function () {
+                    wx.switchTab({
+                      url: '../logs/logs',
+                    })
+                  }
+                })
+              } else if (code == 401) {
+                Toast.fail({
+                  message: "委托取消失败",
+                })
+              }
+            },
+            fail: function () {
+              Toast.fail({
+                message: "委托取消失败",
               })
             }
           })
-        } else if (code == 401) {
-          Toast.fail({
-            message: "委托取消失败",
-          })
+        } else {
+          console.log('用户点击了取消')
         }
-      },
-      fail: function () {
-        Toast.fail({
-          message: "委托取消失败",
-        })
       }
     })
   },
@@ -69,31 +81,43 @@ Page({
   finishOrder: function(){
     console.log("finish id : ", this.data.delegation_id);
     var url = host + "/" + this.data.delegation_id.toString() + "/finish";
-    wx.request({
-      method: "PUT",
-      url: url,
-      success: res => {
-        var code = res.data.code
-        console.log(code)
-        if (code == 200) {
-          Toast.success({
-            message: "委托完成成功",
-            onClose: function () {
-              wx.switchTab({
-                url: '../logs/logs',
+    wx.showModal({
+      title: '完成委托',
+      content: '是否确认完成委托',
+      success: function(res){
+        if(res.confirm){
+          console.log("用户点击了确定")
+          wx.request({
+            method: "PUT",
+            url: url,
+            success: res => {
+              var code = res.data.code
+              console.log(code)
+              if (code == 200) {
+                Toast.success({
+                  message: "委托完成成功",
+                  onClose: function () {
+                    wx.switchTab({
+                      url: '../logs/logs',
+                    })
+                  }
+                })
+              } else if (code == 401) {
+                Toast.fail({
+                  message: "委托完成失败",
+                })
+              }
+            },
+            fail: function () {
+              Toast.fail({
+                message: "委托完成失败",
               })
             }
           })
-        } else if (code == 401) {
-          Toast.fail({
-            message: "委托完成失败",
-          })
         }
-      },
-      fail: function () {
-        Toast.fail({
-          message: "委托完成失败",
-        })
+        else{
+          console.log("用户点击了取消")
+        }
       }
     })
   },

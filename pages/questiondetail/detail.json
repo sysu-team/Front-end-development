@@ -1,0 +1,16 @@
+{
+  "usingComponents": {
+    "van-card": "../../UI/dist/card/index",
+    "van-button": "../../UI/dist/button/index",
+    "van-toast": "../../UI/dist/toast/index",
+    "van-collapse": "../../UI/dist/collapse/index",
+    "van-collapse-item": "../../UI/dist/collapse-item/index",
+    "van-radio": "../../UI/dist/radio/index",
+    "van-radio-group": "../../UI/dist/radio-group/index",
+    "van-cell": "../../UI/dist/cell/index",
+    "van-cell-group": "../../UI/dist/cell-group/index",
+    "van-field": "../../UI/dist/field/index"
+  },
+  "navigationBarTitleText": "问卷详情",
+  "navigationBarBackgroundColor": "#ccc"
+}

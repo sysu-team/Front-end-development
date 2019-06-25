@@ -50,7 +50,7 @@ Page({
             var result = res.data.data;
             console.log("1: ", result);
             result.forEach(obj => {
-              obj.deadline = time.formatTime(result.deadline, 'Y/M/D h:m:s')
+              obj.deadline = time.formatTime(obj.deadline, 'Y/M/D h:m:s')
             })
             that.setData({
               acceptedArray: result
@@ -86,7 +86,7 @@ Page({
             if(result.length == 0) return;
             console.log("2: ", result);
             result.forEach(obj => {
-              obj.deadline = time.formatTime(result.deadline, 'Y/M/D h:m:s')
+              obj.deadline = time.formatTime(obj.deadline, 'Y/M/D h:m:s')
             })
             that.setData({
               finished: result
@@ -122,7 +122,7 @@ Page({
             if(result.length == 0) return;
             console.log("0: ", result[0].name);
             result.forEach(obj => {
-              obj.deadline = time.formatTime(result.deadline, 'Y/M/D h:m:s')
+              obj.deadline = time.formatTime(obj.deadline, 'Y/M/D h:m:s')
             })
             that.setData({
               myPublishArray: result

@@ -17,7 +17,7 @@
   </van-collapse-item>
   <van-collapse-item name="2">
     <view slot="title">已完成任务<van-icon name="question-o" /></view>
-    <view wx:for="{{finished}}" wx:key="item">
+    <view wx:for="{{finished}}" c>
       <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
         <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}&isPublish=no">
           <view slot="footer">
