@@ -6,6 +6,7 @@ Page({
    */
   data: {
     currentFatherIndex: 0,
+    finishQuestion: false,
     questionnaireArray: [
       {
         "type": "SCQ",
@@ -46,7 +47,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id)
+    console.log(options.id);
+    this.setData({
+      finishQuestion: wx.getStorageSync('finishQuestion')
+    })
   },
 
   /**
@@ -60,7 +64,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      finishQuestion: wx.getStorageSync('finishQuestion')
+    })
   },
 
   /**

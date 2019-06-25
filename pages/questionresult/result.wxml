@@ -1,0 +1,8 @@
+<scroll-view scroll-y>
+  <view>
+    <van-cell-group>
+      <van-cell title="题目" value="内容" label="选择：" border="{{ false }}" />
+    </van-cell-group>
+    <view class='divLine'></view>
+  </view>
+</scroll-view>

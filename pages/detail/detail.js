@@ -26,7 +26,8 @@ Page({
     type: null,
     delegation_state: null,
     delegation_id: null,
-    delegation_button: ""
+    delegation_button: "",
+    isPublisher: false
   },
   onChange(event) {
     this.setData({
@@ -130,12 +131,14 @@ Page({
     });
     if(options.isPublish == "yes"){
       this.setData({
-        delegation_button: "确认委托完成"
+        delegation_button: "确认委托完成",
+        isPublisher: true
       })
     }
     else{
       this.setData({
-        delegation_button: "完成委托"
+        delegation_button: "完成委托",
+        isPublisher: false
       })
     }
     console.log("from: logs: ", options);
@@ -182,6 +185,23 @@ Page({
       }
     })
     
+  },
+  glanceQuestion: function(){
+    wx.navigateTo({
+      url: '../questiondetail/detail',
+    })
+    wx.setStorageSync("finishQuestion", false);
+  },
+  finishQuestion: function(){
+    wx.navigateTo({
+      url: '../questiondetail/detail',
+    })
+    wx.setStorageSync("finishQuestion", true);
+  },
+  glanceResult: function () {
+    wx.navigateTo({
+      url: '../questionresult/result',
+    })
   },
 
   /**

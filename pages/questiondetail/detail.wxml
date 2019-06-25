@@ -52,5 +52,7 @@
     <view class='divLine'></view>
   </block>
 </view>
-<button class="weui-btn" type="primary" bindtap='complete'>完成</button>
+<view wx:if="{{'{{finishQuestion}}'==true}}">
+<button class="weui-btn" type="primary" bindtap='complete' disabled='finishQuestion'>提交</button>
+</view>
 
