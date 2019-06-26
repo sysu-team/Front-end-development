@@ -24,7 +24,11 @@
     </view>
   </view>
 </view>
-<view id = "signout">
+<view id = "info-group">
+  <van-cell is-link title="用户信息" bind:click = "goToInfo"/>
+  <van-cell is-link title="帮助" bind:click = "goToHelp"/>
+</view>
+<view id="signout">
   <van-row>
     <van-col span="12" offset="6">
       <van-button size="large" type="danger" round bindtap='signOut'>退出登录</van-button>
