@@ -21,7 +21,7 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.1",
+	"libVersion": "2.7.2",
 	"appid": "wx296231dd4ca34b67",
 	"projectname": "Front-end-development",
 	"debugOptions": {
