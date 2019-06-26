@@ -3,6 +3,7 @@ const time = require('../../utils/util.js');
 const app = getApp();
 import Toast from '../../UI/dist/toast/toast';
 const host = "http://172.26.94.161:7198/users/delegations";
+const host2 = "http://172.26.94.161:7198/delegations";
 Page({
   data: {
     page: 1,
@@ -141,32 +142,52 @@ Page({
       }
     });
   },
-  // deleteTask: function(e){
-  //   var arr = wx.getStorageSync('array');
-  //   this.setData({
-  //     allArray: arr
-  //   });
-  //   console.log("listName: ", e.currentTarget.dataset.desc);
-  //   var deleteListName = e.currentTarget.dataset.desc;
-  //   var new_array = new Array();
-  //   var unfinish_array = new Array();
-  //   var finished_array = new Array();
-  //   var index = -1;
-  //   for (var i = 0; i < this.data.allArray.length; i++) {
-  //     if (this.data.allArray[i].id != deleteListName.id)
-  //       new_array.push(this.data.allArray[i]);
-  //     if (this.data.allArray[i].id != deleteListName.id && this.data.allArray[i].finish == false)
-  //       unfinish_array.push(this.data.allArray[i]);
-  //     if (this.data.allArray[i].id != deleteListName.id && this.data.allArray[i].finish == true)
-  //       finished_array.push(this.data.allArray[i]);
-  //   }
-  //   this.setData({
-  //     allArray: new_array,
-  //     unfinishedArray: unfinish_array,
-  //     finished: finished_array
-  //   });
-  //   wx.setStorageSync('array', this.data.allArray);
-  // },
+  //取消委托
+  deleteTask: function(e){
+    var id = e.currentTarget.dataset.id;
+    console.log("cancel id: ", id);
+    var url = host2 + "/" + id.toString() + "/cancel";
+    wx.showModal({
+      title: '取消委托',
+      content: '是否确认取消委托',
+      success: function (res) {
+        console.log(res)
+        if (res.confirm) {
+          console.log('用户点击了确定')
+          wx.request({
+            method: "PUT",
+            url: url,
+            success: res => {
+              var code = res.data.code
+              console.log(code)
+              if (code == 200) {
+                Toast.success({
+                  message: "委托取消成功",
+                  onClose: function () {
+                    wx.switchTab({
+                      url: '../logs/logs',
+                    })
+                  }
+                })
+              } else if (code == 401) {
+                Toast.fail({
+                  message: "委托取消失败",
+                })
+              }
+            },
+            fail: function () {
+              Toast.fail({
+                message: "委托取消失败",
+              })
+            }
+          })
+        } else {
+          console.log('用户点击了取消')
+        }
+      }
+    })
+  },
+
   onShow: function (options) {
     if (!app.globalData.has_login) {
       Toast.fail("你尚未登录,请前往\"我的->登录\"")

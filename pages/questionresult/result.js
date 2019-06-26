@@ -1,18 +1,56 @@
 // pages/questionresult/result.js
+import Toast from '../../UI/dist/toast/toast';
+const app = getApp();
+const host = "http://172.26.94.161:7198/questionnaire/";
+var time = require("../../utils/util.js");
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    questions: [
+      {
+        "topic": "Which fruit do you like best?",
+        "answers":
+          [
+            { "option": "Lua", "count": 1 },
+            { "option": "Java", "count": 1 },
+            { "option": "C++", "count": 1 },
+            { "option": "A++", "count": 1 }
+          ]
+      },
+      {
+        "topic": "Which fruit do you like?",
+        "answers":
+          [
+            { "option": "OK", "count": 1 },
+            { "option": "Java", "count": 1 },
+            { "option": "C++", "count": 1 }
+          ]
+      },
+    ],
+    title: "love"
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    var url = host + this.data.delegation_id.toString() + "/result" ;
+    wx.request({
+      url: url,
+      method: 'GET',
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          title: res.data.result.title,
+          questions: res.data.result.questions
+        })
+        console.log(that.data.result);
+      }
+    });
   },
 
   /**

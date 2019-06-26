@@ -1,7 +1,14 @@
 <scroll-view scroll-y>
-  <view>
+  <van-cell-group>
+    <van-cell title="问卷题目： {{title}}" border="{{ false }}" />
+    <view class='topLine'></view>
+  </van-cell-group>
+  <view wx:for="{{questions}}" wx:key="id">
     <van-cell-group>
-      <van-cell title="题目" value="内容" label="选择：" border="{{ false }}" />
+      <van-cell title="题目：{{item.topic}}" border="{{ false }}" />
+      <view wx:for="{{item.answers}}" wx:key="id">
+        <van-cell title="选项：{{item.option}}" value="选择人数：{{item.count}}" border="{{ false }}" />
+      </view>
     </van-cell-group>
     <view class='divLine'></view>
   </view>

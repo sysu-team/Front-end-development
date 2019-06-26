@@ -191,17 +191,20 @@ Page({
       url: '../questiondetail/detail',
     })
     wx.setStorageSync("finishQuestion", false);
+    wx.setStorageSync("delegateID", this.data.delegation_id);
   },
   finishQuestion: function(){
     wx.navigateTo({
       url: '../questiondetail/detail',
     })
     wx.setStorageSync("finishQuestion", true);
+    wx.setStorageSync("delegateID", this.data.delegation_id);
   },
   glanceResult: function () {
     wx.navigateTo({
       url: '../questionresult/result',
     })
+    wx.setStorageSync("delegateID", this.data.delegation_id);
   },
 
   /**

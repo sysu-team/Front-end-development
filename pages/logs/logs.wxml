@@ -4,7 +4,7 @@
     <view slot="title">已接受任务<van-icon name="question-o" /></view>
     <view wx:for="{{acceptedArray}}" wx:key="id">
       <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
-        <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}&isPublish=no">
+        <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}&isPublish=no" data-id="{{item.id}}">
           <view slot="footer">
             <van-button size="mini" round plain type="primary" disabled='true'>已接受</van-button>
             <view >截止时间:{{item.deadline}}</view>
@@ -19,7 +19,7 @@
     <view slot="title">已完成任务<van-icon name="question-o" /></view>
     <view wx:for="{{finished}}" c>
       <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
-        <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}&isPublish=no">
+        <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}&isPublish=no" data-id="{{item.id}}">
           <view slot="footer">
             <van-button size="mini" round plain type="primary" disabled='true'>已完成</van-button>
             <view >截止时间:{{item.deadline}}</view>
@@ -34,7 +34,7 @@
     <view slot="title">已发布任务<van-icon name="question-o" /></view>
     <view wx:for="{{myPublishArray}}" wx:key="item">
       <van-swipe-cell id="swipe-cell" right-width="{{ 65 }}" async-close bind:close="onClose">
-        <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}&isPublish=yes">
+        <van-card price="{{item.reward}}" desc="{{item.description}}" title="{{item.name}}" thumb="{{img}}"  lazy-load="true" thumb-link="../detail/detail?id={{item.id}}&isPublish=yes" data-id="{{item.id}}">
           <view slot="footer">
             <van-button size="mini" round plain type="primary" disabled='true'>已发布</van-button>
             <view >截止时间:{{item.deadline}}</view>

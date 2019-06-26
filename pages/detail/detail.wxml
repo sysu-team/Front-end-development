@@ -35,10 +35,10 @@
   <van-button class="buttonPlace" size='large' round type="info" bindtap='finishOrder' disabled='{{finish}}'>{{delegation_button}}</van-button>
   
 </scroll-view>
-<view wx:if="{{'{{type}}'=='填写问卷'}}">
+<view wx:if="{{type}}=='填写问卷'">
   <van-button class="buttonPlace" size='large' round type="primary" bindtap='finishQuestion' >完成问卷</van-button>
   <van-button class="buttonPlace" size='large' round type="info" bindtap='glanceQuestion' >查看问卷</van-button>
-  <view wx:if="{{'{{isPublisher}}'==true}}">
+  <view wx:if="{{isPublisher}}==true">
     <van-button class="buttonPlace" size='large' round type="info" bindtap='glanceResult' >查看问卷结果</van-button>
   </view>
 
