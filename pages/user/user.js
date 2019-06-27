@@ -33,7 +33,7 @@ Page({
           this.setData({
             name: res.data.data.name,
             credits: res.data.data.credit,
-            number: res.data.data.student_number
+            number: res.data.data.studentNumber
           })
         }
       })

@@ -10,8 +10,8 @@
             </view> 
           </van-cell>
           <van-checkbox-group>
-            <van-checkbox wx:for="{{ que.options }}" wx:key="index" x:for-item="opt" name="{{ opt }}" custom-class="value-class">
-              {{ item }}
+            <van-checkbox wx:for="{{ que.options }}" wx:key="index" wx:for-item="opt" name="{{ opt.option }}" custom-class="value-class">
+              {{ opt.option }}
             </van-checkbox>
           </van-checkbox-group>
         </van-cell>
@@ -36,8 +36,8 @@
         <view class="topic">题目: {{topic}}</view>
       </van-cell>
       <van-checkbox-group>
-        <van-checkbox wx:for="{{ options }}" wx:key="index" name="{{ item }}" custom-class="value-class">
-          {{ item }}
+        <van-checkbox wx:for="{{ options }}" wx:key="index" name="{{ item.option }}" custom-class="value-class">
+          {{ item.option }}
         </van-checkbox>
       </van-checkbox-group>
       <van-field wx:if="{{input}}" value="{{ option }}" placeholder="请输入选项" bind:change="inputOption" />

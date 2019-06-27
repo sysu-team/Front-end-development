@@ -69,7 +69,11 @@ Page({
         return;
       }
       var arr = this.data.options
-      arr.push(this.data.option)
+      var obj = {
+        option: this.data.option,
+        count: 0
+      }
+      arr.push(obj)
       this.setData({
         option: "",
         options: arr,
