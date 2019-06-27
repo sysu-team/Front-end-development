@@ -17,8 +17,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var id = wx.getStorageSync("delegateID");
     var that = this;
-    var url = host + this.data.delegation_id.toString() + "/result" ;
+    var url = host + id.toString() + "/result" ;
     wx.request({
       url: url,
       method: 'GET',
