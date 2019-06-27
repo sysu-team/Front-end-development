@@ -29,7 +29,8 @@ Page({
     delegation_button: "",
     isPublisher: false,
     fromIndex: false,
-    isquestionnaire: null
+    isquestionnaire: null,
+    isAccept: true
   },
   onChange(event) {
     this.setData({
@@ -162,9 +163,13 @@ Page({
               wx.hideLoading()
             }, 1200);
             var result = res.data.data;
-            console.log(result);
-            if(result.receiver_id == "" || result.receiver_id == "undefined"){
+            console.log(result.receiver_id);
+            if(result.receiver_name == ""){
+              console.log("receiver: ", result.receiver_name);
               result.receiver_name = "暂无";
+              that.setData({
+                isAccept: false
+              })
             }
             that.setData({
               name: result.delegation_name,

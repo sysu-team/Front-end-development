@@ -34,7 +34,7 @@
   <view>
     <van-button class="buttonPlace" size='small' type="primary" bindtap='rejectOrder' disabled='{{reject}}'>取消订单</van-button>
     <van-button class="buttonPlace" size='small' type="info" bindtap='finishOrder' disabled='{{finish}}'>{{delegation_button}}</van-button>
-    <van-button wx:if="{{isquestionnaire == true}}" class="buttonPlace" size='small' type="primary" bindtap='finishQuestion' >完成问卷</van-button>
+    <van-button wx:if="{{isquestionnaire == true && isAccept == true}}" class="buttonPlace" size='small' type="primary" bindtap='finishQuestion' >完成问卷</van-button>
     <van-button wx:if="{{isquestionnaire == true}}" class="buttonPlace" size='small' type="info" bindtap='glanceQuestion' >查看问卷</van-button>
   </view>
   <view>
