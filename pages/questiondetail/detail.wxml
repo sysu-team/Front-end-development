@@ -1,5 +1,5 @@
 <van-cell-group>
-  <van-cell title="问卷题目" value="￥25" label="描述信息" border="{{ false }}" />
+  <van-cell title="问卷题目" value="￥25" label="{{delegationName}}" border="{{ false }}" />
   <view class='topLine'></view>
 </van-cell-group>
 
@@ -21,7 +21,7 @@
     <view class='divLine'></view>
   </block>
 </view>
-<view wx:if="{{finishQuestion}}==true">
+<view wx:if="{{finishQuestion==true}}">
 <button class="weui-btn" type="primary" bindtap='complete'>提交</button>
 </view>
 
