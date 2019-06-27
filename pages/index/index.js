@@ -9,12 +9,12 @@ Page({
     page: 1,
     limit: 10,
     state: 0,
-    img: "../../../source/image/订单.png",
+    img: "https://raw.githubusercontent.com/sysu-team/Front-end-development/master/source/image/%E8%AE%A2%E5%8D%95.png",
     loadmore: false
   },
   generateUrl() {
-    return host + "?page=" + this.data.page.toString()
-      + "&limit=" + this.data.limit.toString() + "&state=0"
+    return host + "?page=" + this.data.page.toString() +
+      "&limit=" + this.data.limit.toString() + "&state=0"
   },
   //事件处理函数
   onLoad: function() {
@@ -32,7 +32,7 @@ Page({
             setTimeout(function() {
               wx.hideLoading()
             }, 1200)
-            var  arr = res.data.data
+            var arr = res.data.data
             arr.forEach(obj => {
               obj.deadline = new Date(obj.deadline * 1000).toLocaleString
             })
@@ -58,9 +58,9 @@ Page({
       }
     })
   },
-  onShow: function(){
+  onShow: function() {
     wx.startPullDownRefresh({
-      success: function(){
+      success: function() {
         console.log("refreshing")
       }
     })
@@ -157,19 +157,19 @@ Page({
     delegationIDs = wx.getStorageSync("delegationIDs") || [];
     delegationIDs.unshift(e.target.dataset.id);
     wx.setStorageSync("delegationIDs", delegationIDs);
-    if (!app.globalData.has_login){
+    if (!app.globalData.has_login) {
       Toast.fail("你尚未登录,请前往\"我的->登录\"")
       return
     }
     console.log(e.target)
     var delegation_id = e.target.dataset.id
     console.log(delegation_id)
-    var url = host + '/' + delegation_id.toString() +'/accept'
+    var url = host + '/' + delegation_id.toString() + '/accept'
     console.log(url)
     wx.request({
       method: "PUT",
       url: url,
-      success: res =>{
+      success: res => {
         var code = res.data.code
         console.log(code)
         if (code == 200) {
@@ -201,7 +201,7 @@ Page({
       }
     })
   },
-  publishDelegation: function(){
+  publishDelegation: function() {
     if (!app.globalData.has_login) {
       Toast.fail("你尚未登录,请前往\"我的->登录\"")
       return
