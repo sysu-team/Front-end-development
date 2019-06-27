@@ -174,11 +174,12 @@ Page({
       url: url,
       method: 'PUT',
       data: {
-          question_result: questionnaire
+          title: this.data.delegationName,
+          questions: questions
       },
       success: function (res) {
-        that.setData({ //这里是修改data的值  
-          test: res.data //test等于服务器返回来的数据  
+        that.setData({ 
+          test: res.data 
         });
         console.log(res.data)
       }

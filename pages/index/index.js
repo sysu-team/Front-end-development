@@ -9,7 +9,7 @@ Page({
     page: 1,
     limit: 10,
     state: 0,
-    img: "https://raw.githubusercontent.com/sysu-team/Front-end-development/master/source/image/%E8%AE%A2%E5%8D%95.png",
+    img: "../../../source/image/订单.png",
     loadmore: false
   },
   generateUrl() {
