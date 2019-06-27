@@ -127,7 +127,8 @@ Page({
                 this.setData({
                   login: true,
                   name: res.data.data.name,
-                  credits: res.data.data.credit
+                  credits: res.data.data.credit,
+                  number: res.data.data.studentNumber
                 })
                 Toast.success({
                   message: "登录成功!",

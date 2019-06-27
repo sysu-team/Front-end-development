@@ -8,7 +8,7 @@ Page({
   data: {
     state: "begin",
     topic: "",
-    options: [],
+    answers: [],
     questions: [],
     button: "添加选项",
     option:"",
@@ -68,7 +68,7 @@ Page({
         Toast.fail("选项值不能为空")
         return;
       }
-      var arr = this.data.options
+      var arr = this.data.answers
       var obj = {
         option: this.data.option,
         count: 0
@@ -76,20 +76,20 @@ Page({
       arr.push(obj)
       this.setData({
         option: "",
-        options: arr,
+        answers: arr,
         input: false,
         button: "添加选项"
       })
     }
   },
   completeInput: function(){
-    if (this.data.options.length == 0) {
+    if (this.data.answers.length == 0) {
       Toast.fail("选项不能为空")
       return;
     }
     var question = {
       topic: this.data.topic,
-      options: this.data.options
+      answers: this.data.answers
     }
     var arr = this.data.questions
     arr.push(question)
@@ -98,7 +98,7 @@ Page({
       input: false,
       state: "begin",
       topic: "",
-      options: [],
+      answers: [],
       questions: arr
     })
   },
