@@ -31,16 +31,14 @@
           </view>
       </view>
   </view>
-  <van-button class="buttonPlace" size='large' round type="primary" bindtap='rejectOrder' disabled='{{reject}}'>取消订单</van-button>
-  <van-button class="buttonPlace" size='large' round type="info" bindtap='finishOrder' disabled='{{finish}}'>{{delegation_button}}</van-button>
-  
-</scroll-view>
-<view wx:if="{{type}}=='填写问卷'">
-  <van-button class="buttonPlace" size='large' round type="primary" bindtap='finishQuestion' >完成问卷</van-button>
-  <van-button class="buttonPlace" size='large' round type="info" bindtap='glanceQuestion' >查看问卷</van-button>
-  <view wx:if="{{isPublisher}}==true">
-    <van-button class="buttonPlace" size='large' round type="info" bindtap='glanceResult' >查看问卷结果</van-button>
+  <view>
+    <van-button class="buttonPlace" size='small' type="primary" bindtap='rejectOrder' disabled='{{reject}}'>取消订单</van-button>
+    <van-button class="buttonPlace" size='small' type="info" bindtap='finishOrder' disabled='{{finish}}'>{{delegation_button}}</van-button>
+    <van-button wx:if="{{isquestionnaire == true}}" class="buttonPlace" size='small' type="primary" bindtap='finishQuestion' >完成问卷</van-button>
+    <van-button wx:if="{{isquestionnaire == true}}" class="buttonPlace" size='small' type="info" bindtap='glanceQuestion' >查看问卷</van-button>
   </view>
-
-</view>
+  <view>
+    <van-button wx:if="{{isPublisher==true && isquestionnaire == true}}" class="buttonPlace" size='small' type="info" bindtap='glanceResult' >查看问卷结果</van-button>
+  </view>
+</scroll-view>
 <van-toast id="van-toast" />

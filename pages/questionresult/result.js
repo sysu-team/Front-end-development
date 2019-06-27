@@ -43,12 +43,12 @@ Page({
       url: url,
       method: 'GET',
       success: function (res) {
-        console.log(res.data.result.questions);
+        console.log(res.data.data.questions);
         that.setData({
-          title: res.data.result.title,
-          questions: res.data.result.questions
+          title: res.data.data.title,
+          questions: res.data.data.questions
         })
-        console.log(that.data.result);
+        console.log(that.data.data);
       }
     });
   },

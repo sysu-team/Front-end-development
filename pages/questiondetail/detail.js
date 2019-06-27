@@ -14,27 +14,7 @@ Page({
     reward: null,
     currentFatherIndex: 0,
     finishQuestion: true,
-    questionnaireArray: [
-      {
-          "description": "Which fruit do you like best?",
-          "options":
-            [
-              { "name": "Lua", "isSelected": false },
-              { "name": "Java", "isSelected": false },
-              { "name": "C++", "isSelected": false },
-              { "name": "A++", "isSelected": false }
-            ]
-      },
-      {
-          "description": "Which fruit do you like?",
-          "options":
-            [
-              { "name": "OK", "isSelected": false },
-              { "name": "Java", "isSelected": false },
-              { "name": "C++", "isSelected": false }
-            ]
-      },
-    ],
+    questionnaireArray: null,
   },
 
   /**
@@ -52,23 +32,23 @@ Page({
       url: url,
       method: 'GET',
       success: function (res) {
-        console.log(res.data)
+        console.log("detail:" ,res.data);
         that.setData({
-          delegationName: res.data.questionnaire.title,
+          delegationName: res.data.data.Title,
         })
-        console.log(res.data.questionnaire.questions);
+        console.log(res.data.data.questions);
         var questions = new Array();
-        for (var i = 0; i < res.data.questionnaire.questions.length; i++){
+        for (var i = 0; i < res.data.data.questions.length; i++){
           var answers = new Array();
-          for (var j = 0; j < res.data.questionnaire.questions[i].answers.length; j++){
+          for (var j = 0; j < res.data.data.questions[i].answers.length; j++){
             var answer = {
-              name: res.data.questionnaire.questions[i].answers[j].option,
+              name: res.data.data.questions[i].answers[j].option,
               isSelected: false
             }
             answers.push(answer);
           }
           var question = {
-            description: res.data.questionnaire.questions[i].topic,
+            description: res.data.data.questions[i].topic,
             options: answers
           }
           questions.push(question);

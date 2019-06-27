@@ -27,7 +27,9 @@ Page({
     delegation_state: null,
     delegation_id: null,
     delegation_button: "",
-    isPublisher: false
+    isPublisher: false,
+    fromIndex: false,
+    isquestionnaire: null
   },
   onChange(event) {
     this.setData({
@@ -127,8 +129,10 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      delegation_id: options.id
+      delegation_id: options.id,
+      fromIndex: options.isIndex
     });
+    console.log(this.data.fromIndex);
     if(options.isPublish == "yes"){
       this.setData({
         delegation_button: "确认委托完成",
@@ -148,6 +152,7 @@ Page({
     var that = this
     wx.showLoading({
       mask: true,
+      method: "GET",
       title: '正在加载',
       success: function () {
         wx.request({
@@ -158,7 +163,7 @@ Page({
             }, 1200);
             var result = res.data.data;
             console.log(result);
-            if(result.receiver_id == ""){
+            if(result.receiver_id == "" || result.receiver_id == "undefined"){
               result.receiver_name = "暂无";
             }
             that.setData({
@@ -171,6 +176,7 @@ Page({
               description: result.description,
               type: result.delegation_type,
               delegation_state: result.delegation_state,
+              isquestionnaire: result.delegation_type == '填写问卷'
             })
           },
           fail: function () {
