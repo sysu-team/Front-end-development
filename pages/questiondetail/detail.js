@@ -138,7 +138,7 @@ Page({
   },
 
   complete: function () {
-    console.log(this.data.questionnaireArray[1].options.length);
+    console.log("push: ", this.data.questionnaireArray);
     var questions = new Array();
     for(var i=0; i<this.data.questionnaireArray.length; i++){
       var choose = new Array();
