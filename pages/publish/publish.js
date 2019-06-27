@@ -126,7 +126,7 @@ Page({
   },
   publish: function(){
     if (this.data.error_desc != "" || this.data.error_name != "" || this.data.name == ""||this.data.type==""
-    ||this.data.title==""){
+    ){
       Toast.fail("格式错误")
       return
     }
@@ -134,6 +134,13 @@ Page({
     if (this.data.type == "填写问卷" && questions.length==0){
       Toast.fail("发布问卷时,问卷不能为空")
       return
+    }
+    if (this.data.type == "填写问卷" && this.data.title == "") {
+      Toast.fail("格式错误,问卷题目不能为空")
+      return
+    }
+    if (this.data.type != "填写问卷"){
+      questions =[]
     }
     var questionnaire = {
       title: this.data.title,
@@ -154,7 +161,7 @@ Page({
         deadline: parseInt(date.getTime()/1000),
         type: this.data.type,
         questionnaire: questionnaire,
-        number: this.data.number
+        max_number: this.data.number
       },
       success: res=>{
         wx.removeStorageSync("questions")
