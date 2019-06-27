@@ -10,7 +10,7 @@ Page({
    */
   data: {
     questions: null,
-    title: 
+    title: null
   },
 
   /**
