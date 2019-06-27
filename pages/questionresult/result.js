@@ -9,28 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    questions: [
-      {
-        "topic": "Which fruit do you like best?",
-        "answers":
-          [
-            { "option": "Lua", "count": 1 },
-            { "option": "Java", "count": 1 },
-            { "option": "C++", "count": 1 },
-            { "option": "A++", "count": 1 }
-          ]
-      },
-      {
-        "topic": "Which fruit do you like?",
-        "answers":
-          [
-            { "option": "OK", "count": 1 },
-            { "option": "Java", "count": 1 },
-            { "option": "C++", "count": 1 }
-          ]
-      },
-    ],
-    title: "love"
+    questions: null,
+    title: 
   },
 
   /**

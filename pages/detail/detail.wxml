@@ -36,7 +36,7 @@
     <van-button wx:if="{{isquestionnaire == true}}" class="buttonPlace" size='small' type="info" bindtap='glanceQuestion' >查看问卷</van-button>
   </view>
   <view class="center">
-    <van-button wx:if="{{isPublisher==true && isquestionnaire == true}}" class="buttonPlace" size='small' type="info" bindtap='glanceResult' >查看问卷结果</van-button>
+    <van-button wx:if="{{isPublisher==true && isquestionnaire == true}}" class="buttonPlace" size='small' type="info" bindtap='glanceResult' >查看问卷结果      </van-button>
   </view>
 </scroll-view>
 <van-toast id="van-toast" />
