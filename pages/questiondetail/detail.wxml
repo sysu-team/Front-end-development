@@ -1,5 +1,5 @@
 <van-cell-group>
-  <van-cell title="问卷题目" value="￥25" label="{{delegationName}}" border="{{ false }}" />
+  <van-cell title="问卷题目" label="{{delegationName}}" border="{{ false }}" />
   <view class='topLine'></view>
 </van-cell-group>
 

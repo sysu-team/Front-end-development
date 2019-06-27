@@ -29,7 +29,7 @@ Page({
           title: res.data.data.title,
           questions: res.data.data.questions
         })
-        console.log(that.data.data);
+        console.log(that.data.questions);
       }
     });
   },
