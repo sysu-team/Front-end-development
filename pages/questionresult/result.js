@@ -43,7 +43,7 @@ Page({
       url: url,
       method: 'GET',
       success: function (res) {
-        console.log(res.data);
+        console.log(res.data.result.questions);
         that.setData({
           title: res.data.result.title,
           questions: res.data.result.questions

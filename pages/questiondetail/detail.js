@@ -41,10 +41,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id);
     this.setData({
-      finishQuestion: wx.getStorageSync('finishQuestion')
+      finishQuestion: wx.getStorageSync('finishQuestion'),
+      delegation_id: wx.getStorageSync('delegateID')
     });
+    console.log(this.data.delegation_id);
     var that = this;
     var url = host + this.data.delegation_id.toString();
     wx.request({
@@ -57,18 +58,16 @@ Page({
         })
         console.log(res.data.questionnaire.questions);
         var questions = new Array();
-        var question;
         for (var i = 0; i < res.data.questionnaire.questions.length; i++){
-          var answer;
           var answers = new Array();
           for (var j = 0; j < res.data.questionnaire.questions[i].answers.length; j++){
-            answer = {
+            var answer = {
               name: res.data.questionnaire.questions[i].answers[j].option,
               isSelected: false
             }
             answers.push(answer);
           }
-          question = {
+          var question = {
             description: res.data.questionnaire.questions[i].topic,
             options: answers
           }
@@ -94,8 +93,9 @@ Page({
    */
   onShow: function () {
     this.setData({
-      finishQuestion: wx.getStorageSync('finishQuestion')
-    })
+      finishQuestion: wx.getStorageSync('finishQuestion'),
+      delegation_id: wx.getStorageSync('delegateID')
+    });
   },
 
   /**
