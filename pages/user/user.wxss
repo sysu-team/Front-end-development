@@ -2,5 +2,9 @@
 @import "../../UI/weui.wxss";
 
 #signout {
-  margin-top: 40rpx;
+  margin-top: 200rpx;
+}
+#info-group {
+  font-weight: bold;
+  margin-top: 100rpx;
 }

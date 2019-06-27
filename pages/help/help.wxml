@@ -1,0 +1,4 @@
+<!--pages/help/help.wxml-->
+<view>
+  <include src="../../UI/comi/comi.wxml" />
+</view>

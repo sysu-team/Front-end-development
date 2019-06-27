@@ -10,6 +10,7 @@ Page({
     login: false,
     name: '',
     credits: 0,
+    number: '',
     imgSrc: "../../source/image/我的.png",
     userInfo: {},
     hasUserInfo: false,
@@ -19,7 +20,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function () {
+  onShow: function() {
     if (app.globalData.has_login) {
       this.setData({
         login: app.globalData.has_login
@@ -31,14 +32,15 @@ Page({
           console.log(res, "get_user")
           this.setData({
             name: res.data.data.name,
-            credits: res.data.data.credit
+            credits: res.data.data.credit,
+            number: res.data.data.student_number
           })
         }
       })
     }
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData({
       login: app.globalData.has_login,
       //name: app.globalData.userName
@@ -73,7 +75,7 @@ Page({
     }
   },
 
-  getUserInfo: function (e) {
+  getUserInfo: function(e) {
     if (!e.detail.userInfo) {
       wx.showModal({
         title: '获取权限失败',
@@ -97,13 +99,13 @@ Page({
     }
   },
   //前往注册页面
-  goToSignUp: function () {
+  goToSignUp: function() {
     wx.navigateTo({
       url: '../signup/signup',
     })
   },
   //登录
-  signIn: function () {
+  signIn: function() {
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -130,7 +132,7 @@ Page({
                 Toast.success({
                   message: "登录成功!",
                   mask: true,
-                  onClose: function () {
+                  onClose: function() {
                     wx.switchTab({
                       url: '../user/user',
                     })
@@ -188,7 +190,7 @@ Page({
       }
     })
   },
-  signOut: function () {
+  signOut: function() {
     wx.request({
       method: 'DELETE',
       url: 'http://172.26.94.161:7198/users/session',
@@ -202,7 +204,7 @@ Page({
           Toast.success({
             message: "退出登录成功!",
             mask: true,
-            onClose: function () {
+            onClose: function() {
               wx.switchTab({
                 url: '../user/user',
               })
@@ -225,6 +227,20 @@ Page({
           })
         }
       }
+    })
+  },
+  goToInfo: function() {
+    if (!this.data.login) {
+      Toast.fail("你尚未登录!")
+      return
+    }
+    wx.navigateTo({
+      url: '../userinfo/userinfo?name=' + this.data.name + '&credits=' + this.data.credits + '&number=' + this.data.number,
+    })
+  },
+  goToHelp: function() {
+    wx.navigateTo({
+      url: '../help/help',
     })
   }
 })

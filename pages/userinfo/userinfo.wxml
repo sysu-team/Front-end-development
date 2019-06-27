@@ -1,0 +1,6 @@
+<!--pages/userinfo/userinfo.wxml-->
+<view>
+  <van-cell title="用户名" value="{{name}}"/>
+  <van-cell title="学号" value="{{number}}"/>
+  <van-cell title="积分" value="{{credits}}"/>
+</view>

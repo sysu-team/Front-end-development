@@ -8,7 +8,9 @@
     "pages/questionnaire/questionnaire",
     "pages/publish/publish",
     "pages/questionresult/result",
-    "pages/questiondetail/detail"
+    "pages/questiondetail/detail",
+    "pages/help/help",
+    "pages/userinfo/userinfo"
   ],
   "window": {
     "backgroundTextStyle": "light",
